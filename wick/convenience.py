@@ -167,6 +167,8 @@ def two_p(name, space="nm", index_key=None):
     name (str): Name of operator
     space (str): Name of boson space
     """
+    # x, y, index to bosonic modes
+
     x = Idx(0, space, fermion=False)
     y = Idx(1, space, fermion=False)
     t1 = Term(
@@ -423,6 +425,30 @@ def P2(name, spaces, index_key=None):
             terms.append(e2)
     return Expression(terms)
 
+def P3(name, spaces, index_key=None):
+    """
+    Return the tensor representation of a Boson double-excitation operator
+
+    name (string): name of the tensor
+    spaces (list): list of spaces
+    """
+    terms = []
+    sym = TensorSym([(0, 1, 2), (1, 2, 0)], [1, 1])
+    for s1 in spaces:
+        for s2 in spaces:
+            for s3 in spaces:
+                x = Idx(0, s1, fermion=False)
+                i = 1 if s1 == s2 else 0
+                y = Idx(i, s2, fermion=False)
+                i = 2 if s1 == s3 else 0
+                z = Idx(i, s3, fermion=False)
+                sums = [Sigma(x), Sigma(y), Sigma(z)]
+                tensors = [Tensor([x, y, z], name, sym=sym)]
+                operators = [BOperator(x, True), BOperator(y, True), BOperator(z, True)]
+                s = Fraction('1/6')
+                e2 = Term(s, sums, tensors, operators, [], index_key=index_key)
+                terms.append(e2)
+    return Expression(terms)
 
 def EPS1(name, bspaces, ospaces, vspaces, index_key=None):
     """
@@ -678,6 +704,20 @@ def braP2(space, index_key=None):
     return Expression([
         Term(1, [], tensors, operators, [], index_key=index_key)])
 
+
+def braP3(space, index_key=None):
+    """
+    Return projection onto space of Boson pairs
+
+    space (str): Name of boson space
+    """
+    x = Idx(0, space, fermion=False)
+    y = Idx(1, space, fermion=False)
+    z = Idx(2, space, fermion=False)
+    operators = [BOperator(x, False), BOperator(y, False),BOperator(z, False)]
+    tensors = [Tensor([x, y, z], "")]
+    return Expression([
+        Term(1, [], tensors, operators, [], index_key=index_key)])
 
 def braP1E1(bspace, ospace, vspace, index_key=None):
     """

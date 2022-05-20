@@ -1,0 +1,335 @@
+
+two_p(w)= 1\sum_{0}\sum_{1}w_{01}b^{\dagger}_0(nm)b_1(nm)
+
+one_p(G)= 1\sum_{0}G_{0}b^{\dagger}_0(nm) + 1\sum_{0}G_{0}b_0(nm)
+
+Hp= 1\sum_{0}\sum_{1}w_{01}b^{\dagger}_0(nm)b_1(nm) + 1\sum_{0}G_{0}b^{\dagger}_0(nm) + 1\sum_{0}G_{0}b_0(nm) 
+
+H1 -1\sum_{0}\sum_{1}f_{01}a_1(occ)a^{\dagger}_0(occ) + 1\sum_{0}\sum_{0}f_{00}a^{\dagger}_0(occ)a_0(vir) + 1\sum_{0}\sum_{0}f_{00}a^{\dagger}_0(vir)a_0(occ) + 1\sum_{0}\sum_{1}f_{01}a^{\dagger}_0(vir)a_1(vir)
+H2 1/4\sum_{0}\sum_{1}\sum_{2}\sum_{3}I_{0123}a_3(occ)a_2(occ)a^{\dagger}_0(occ)a^{\dagger}_1(occ) + -1/2\sum_{0}\sum_{1}\sum_{2}\sum_{0}I_{0120}a_2(occ)a^{\dagger}_0(occ)a^{\dagger}_1(occ)a_0(vir) + 1/4\sum_{0}\sum_{1}\sum_{0}\sum_{1}I_{0101}a^{\dagger}_0(occ)a^{\dagger}_1(occ)a_1(vir)a_0(vir) + -1/2\sum_{0}\sum_{0}\sum_{1}\sum_{2}I_{0012}a^{\dagger}_0(vir)a_2(occ)a_1(occ)a^{\dagger}_0(occ) + -1\sum_{0}\sum_{0}\sum_{1}\sum_{1}I_{0011}a^{\dagger}_0(vir)a_1(occ)a^{\dagger}_0(occ)a_1(vir) + -1/2\sum_{0}\sum_{0}\sum_{1}\sum_{2}I_{0012}a^{\dagger}_0(vir)a^{\dagger}_0(occ)a_2(vir)a_1(vir) + 1/4\sum_{0}\sum_{1}\sum_{0}\sum_{1}I_{0101}a^{\dagger}_0(vir)a^{\dagger}_1(vir)a_1(occ)a_0(occ) + -1/2\sum_{0}\sum_{1}\sum_{0}\sum_{2}I_{0102}a^{\dagger}_0(vir)a^{\dagger}_1(vir)a_0(occ)a_2(vir) + 1/4\sum_{0}\sum_{1}\sum_{2}\sum_{3}I_{0123}a^{\dagger}_0(vir)a^{\dagger}_1(vir)a_3(vir)a_2(vir)
+Hep -1\sum_{0}\sum_{0}\sum_{1}g_{001}b_0(nm)a_1(occ)a^{\dagger}_0(occ) + -1\sum_{0}\sum_{0}\sum_{1}g_{001}b^{\dagger}_0(nm)a_1(occ)a^{\dagger}_0(occ) + 1\sum_{0}\sum_{0}\sum_{0}g_{000}b_0(nm)a^{\dagger}_0(occ)a_0(vir) + 1\sum_{0}\sum_{0}\sum_{0}g_{000}b^{\dagger}_0(nm)a^{\dagger}_0(occ)a_0(vir) + 1\sum_{0}\sum_{0}\sum_{0}g_{000}b_0(nm)a^{\dagger}_0(vir)a_0(occ) + 1\sum_{0}\sum_{0}\sum_{0}g_{000}b^{\dagger}_0(nm)a^{\dagger}_0(vir)a_0(occ) + 1\sum_{0}\sum_{0}\sum_{1}g_{001}b_0(nm)a^{\dagger}_0(vir)a_1(vir) + 1\sum_{0}\sum_{0}\sum_{1}g_{001}b^{\dagger}_0(nm)a^{\dagger}_0(vir)a_1(vir)
+Hp 1\sum_{0}\sum_{1}w_{01}b^{\dagger}_0(nm)b_1(nm) + 1\sum_{0}G_{0}b^{\dagger}_0(nm) + 1\sum_{0}G_{0}b_0(nm)
+S1= 1\sum_{0}S1old_{0}b^{\dagger}_0(nm) 
+
+S2= 1/2\sum_{0}\sum_{1}s2_{01}b^{\dagger}_0(nm)b^{\dagger}_1(nm) 
+
+S3= 1/6\sum_{0}\sum_{1}\sum_{2}s3_{012}b^{\dagger}_0(nm)b^{\dagger}_1(nm)b^{\dagger}_2(nm) 
+
+
+ ----------- T-1 term -----------
+
+ + 1.0f_{ai}
+ + 1.0\sum_{I}G_{I}U11old_{Iai}
+ - 1.0\sum_{j}f_{ji}T1old_{aj}
+ + 1.0\sum_{b}f_{ab}T1old_{bi}
+ + 1.0\sum_{I}g_{Iai}S1old_{I}
+ - 1.0\sum_{jb}f_{jb}T2old_{abji}
+ - 1.0\sum_{Ij}g_{Iji}U11old_{Iaj}
+ + 1.0\sum_{Ib}g_{Iab}U11old_{Ibi}
+ - 1.0\sum_{jb}I_{jaib}T1old_{bj}
+ + 0.5\sum_{jkb}I_{jkib}T2old_{abkj}
+ - 0.5\sum_{jbc}I_{jabc}T2old_{cbji}
+ - 1.0\sum_{jb}f_{jb}T1old_{bi}T1old_{aj}
+ - 1.0\sum_{Ij}g_{Iji}T1old_{aj}S1old_{I}
+ + 1.0\sum_{Ib}g_{Iab}T1old_{bi}S1old_{I}
+ - 1.0\sum_{Ijb}g_{Ijb}T1old_{aj}U11old_{Ibi}
+ - 1.0\sum_{Ijb}g_{Ijb}T1old_{bi}U11old_{Iaj}
+ + 1.0\sum_{Ijb}g_{Ijb}T1old_{bj}U11old_{Iai}
+ - 1.0\sum_{Ijb}g_{Ijb}T2old_{abji}S1old_{I}
+ - 1.0\sum_{jkb}I_{jkib}T1old_{aj}T1old_{bk}
+ + 1.0\sum_{jbc}I_{jabc}T1old_{ci}T1old_{bj}
+ - 0.5\sum_{jkbc}I_{jkbc}T1old_{aj}T2old_{cbki}
+ - 0.5\sum_{jkbc}I_{jkbc}T1old_{ci}T2old_{abkj}
+ + 1.0\sum_{jkbc}I_{jkbc}T1old_{cj}T2old_{abki}
+ + 1.0\sum_{jkbc}I_{jkbc}T1old_{ci}T1old_{aj}T1old_{bk}
+T1 += 1.0*einsum('ai->ai', f)
+T1 += 1.0*einsum('I,Iai->ai', G, U11old)
+T1 += -1.0*einsum('ji,aj->ai', f, T1old)
+T1 += 1.0*einsum('ab,bi->ai', f, T1old)
+T1 += 1.0*einsum('Iai,I->ai', g, S1old)
+T1 += -1.0*einsum('jb,abji->ai', f, T2old)
+T1 += -1.0*einsum('Iji,Iaj->ai', g, U11old)
+T1 += 1.0*einsum('Iab,Ibi->ai', g, U11old)
+T1 += -1.0*einsum('jaib,bj->ai', I, T1old)
+T1 += 0.5*einsum('jkib,abkj->ai', I, T2old)
+T1 += -0.5*einsum('jabc,cbji->ai', I, T2old)
+T1 += -1.0*einsum('jb,bi,aj->ai', f, T1old, T1old)
+T1 += -1.0*einsum('Iji,aj,I->ai', g, T1old, S1old)
+T1 += 1.0*einsum('Iab,bi,I->ai', g, T1old, S1old)
+T1 += -1.0*einsum('Ijb,aj,Ibi->ai', g, T1old, U11old)
+T1 += -1.0*einsum('Ijb,bi,Iaj->ai', g, T1old, U11old)
+T1 += 1.0*einsum('Ijb,bj,Iai->ai', g, T1old, U11old)
+T1 += -1.0*einsum('Ijb,abji,I->ai', g, T2old, S1old)
+T1 += -1.0*einsum('jkib,aj,bk->ai', I, T1old, T1old)
+T1 += 1.0*einsum('jabc,ci,bj->ai', I, T1old, T1old)
+T1 += -0.5*einsum('jkbc,aj,cbki->ai', I, T1old, T2old)
+T1 += -0.5*einsum('jkbc,ci,abkj->ai', I, T1old, T2old)
+T1 += 1.0*einsum('jkbc,cj,abki->ai', I, T1old, T2old)
+T1 += 1.0*einsum('jkbc,ci,aj,bk->ai', I, T1old, T1old, T1old)
+
+ ----------- T-2 term -----------
+
+ + 1.0I_{baji}
+ + 1.0\sum_{k}f_{ki}T2old_{bakj}
+ - 1.0\sum_{k}f_{kj}T2old_{baki}
+ + 1.0\sum_{c}f_{ac}T2old_{bcji}
+ - 1.0\sum_{c}f_{bc}T2old_{acji}
+ + 1.0\sum_{I}g_{Iai}U11old_{Ibj}
+ - 1.0\sum_{I}g_{Iaj}U11old_{Ibi}
+ - 1.0\sum_{I}g_{Ibi}U11old_{Iaj}
+ + 1.0\sum_{I}g_{Ibj}U11old_{Iai}
+ - 1.0\sum_{k}I_{kaji}T1old_{bk}
+ + 1.0\sum_{k}I_{kbji}T1old_{ak}
+ - 1.0\sum_{c}I_{baic}T1old_{cj}
+ + 1.0\sum_{c}I_{bajc}T1old_{ci}
+ - 0.5\sum_{kl}I_{klji}T2old_{balk}
+ + 1.0\sum_{kc}I_{kaic}T2old_{bckj}
+ - 1.0\sum_{kc}I_{kajc}T2old_{bcki}
+ - 1.0\sum_{kc}I_{kbic}T2old_{ackj}
+ + 1.0\sum_{kc}I_{kbjc}T2old_{acki}
+ - 0.5\sum_{cd}I_{bacd}T2old_{dcji}
+ - 1.0\sum_{kc}f_{kc}T1old_{ak}T2old_{bcji}
+ + 1.0\sum_{kc}f_{kc}T1old_{bk}T2old_{acji}
+ + 1.0\sum_{kc}f_{kc}T1old_{ci}T2old_{bakj}
+ - 1.0\sum_{kc}f_{kc}T1old_{cj}T2old_{baki}
+ - 1.0\sum_{Ik}g_{Iki}T1old_{ak}U11old_{Ibj}
+ + 1.0\sum_{Ik}g_{Iki}T1old_{bk}U11old_{Iaj}
+ + 1.0\sum_{Ik}g_{Iki}T2old_{bakj}S1old_{I}
+ + 1.0\sum_{Ik}g_{Ikj}T1old_{ak}U11old_{Ibi}
+ - 1.0\sum_{Ik}g_{Ikj}T1old_{bk}U11old_{Iai}
+ - 1.0\sum_{Ik}g_{Ikj}T2old_{baki}S1old_{I}
+ + 1.0\sum_{Ic}g_{Iac}T1old_{ci}U11old_{Ibj}
+ - 1.0\sum_{Ic}g_{Iac}T1old_{cj}U11old_{Ibi}
+ + 1.0\sum_{Ic}g_{Iac}T2old_{bcji}S1old_{I}
+ - 1.0\sum_{Ic}g_{Ibc}T1old_{ci}U11old_{Iaj}
+ + 1.0\sum_{Ic}g_{Ibc}T1old_{cj}U11old_{Iai}
+ - 1.0\sum_{Ic}g_{Ibc}T2old_{acji}S1old_{I}
+ + 1.0\sum_{kl}I_{klji}T1old_{bk}T1old_{al}
+ + 1.0\sum_{kc}I_{kaic}T1old_{cj}T1old_{bk}
+ - 1.0\sum_{kc}I_{kajc}T1old_{ci}T1old_{bk}
+ - 1.0\sum_{kc}I_{kbic}T1old_{cj}T1old_{ak}
+ + 1.0\sum_{kc}I_{kbjc}T1old_{ci}T1old_{ak}
+ + 1.0\sum_{cd}I_{bacd}T1old_{di}T1old_{cj}
+ + 1.0\sum_{Ikc}g_{Ikc}T2old_{acji}U11old_{Ibk}
+ - 1.0\sum_{Ikc}g_{Ikc}T2old_{acki}U11old_{Ibj}
+ + 1.0\sum_{Ikc}g_{Ikc}T2old_{ackj}U11old_{Ibi}
+ - 1.0\sum_{Ikc}g_{Ikc}T2old_{baki}U11old_{Icj}
+ + 1.0\sum_{Ikc}g_{Ikc}T2old_{bakj}U11old_{Ici}
+ - 1.0\sum_{Ikc}g_{Ikc}T2old_{bcji}U11old_{Iak}
+ + 1.0\sum_{Ikc}g_{Ikc}T2old_{bcki}U11old_{Iaj}
+ - 1.0\sum_{Ikc}g_{Ikc}T2old_{bckj}U11old_{Iai}
+ + 1.0\sum_{klc}I_{klic}T1old_{ak}T2old_{bclj}
+ - 1.0\sum_{klc}I_{klic}T1old_{bk}T2old_{aclj}
+ + 0.5\sum_{klc}I_{klic}T1old_{cj}T2old_{balk}
+ - 1.0\sum_{klc}I_{klic}T1old_{ck}T2old_{balj}
+ - 1.0\sum_{klc}I_{kljc}T1old_{ak}T2old_{bcli}
+ + 1.0\sum_{klc}I_{kljc}T1old_{bk}T2old_{acli}
+ - 0.5\sum_{klc}I_{kljc}T1old_{ci}T2old_{balk}
+ + 1.0\sum_{klc}I_{kljc}T1old_{ck}T2old_{bali}
+ + 0.5\sum_{kcd}I_{kacd}T1old_{bk}T2old_{dcji}
+ - 1.0\sum_{kcd}I_{kacd}T1old_{di}T2old_{bckj}
+ + 1.0\sum_{kcd}I_{kacd}T1old_{dj}T2old_{bcki}
+ - 1.0\sum_{kcd}I_{kacd}T1old_{dk}T2old_{bcji}
+ - 0.5\sum_{kcd}I_{kbcd}T1old_{ak}T2old_{dcji}
+ + 1.0\sum_{kcd}I_{kbcd}T1old_{di}T2old_{ackj}
+ - 1.0\sum_{kcd}I_{kbcd}T1old_{dj}T2old_{acki}
+ + 1.0\sum_{kcd}I_{kbcd}T1old_{dk}T2old_{acji}
+ + 0.5\sum_{klcd}I_{klcd}T2old_{adji}T2old_{bclk}
+ - 1.0\sum_{klcd}I_{klcd}T2old_{adki}T2old_{bclj}
+ - 0.5\sum_{klcd}I_{klcd}T2old_{baki}T2old_{dclj}
+ - 0.5\sum_{klcd}I_{klcd}T2old_{bdji}T2old_{aclk}
+ + 1.0\sum_{klcd}I_{klcd}T2old_{bdki}T2old_{aclj}
+ + 0.25\sum_{klcd}I_{klcd}T2old_{dcji}T2old_{balk}
+ - 0.5\sum_{klcd}I_{klcd}T2old_{dcki}T2old_{balj}
+ - 1.0\sum_{Ikc}g_{Ikc}T1old_{ak}T2old_{bcji}S1old_{I}
+ + 1.0\sum_{Ikc}g_{Ikc}T1old_{bk}T2old_{acji}S1old_{I}
+ - 1.0\sum_{Ikc}g_{Ikc}T1old_{ci}T1old_{ak}U11old_{Ibj}
+ + 1.0\sum_{Ikc}g_{Ikc}T1old_{ci}T1old_{bk}U11old_{Iaj}
+ + 1.0\sum_{Ikc}g_{Ikc}T1old_{ci}T2old_{bakj}S1old_{I}
+ + 1.0\sum_{Ikc}g_{Ikc}T1old_{cj}T1old_{ak}U11old_{Ibi}
+ - 1.0\sum_{Ikc}g_{Ikc}T1old_{cj}T1old_{bk}U11old_{Iai}
+ - 1.0\sum_{Ikc}g_{Ikc}T1old_{cj}T2old_{baki}S1old_{I}
+ - 1.0\sum_{klc}I_{klic}T1old_{cj}T1old_{bk}T1old_{al}
+ + 1.0\sum_{klc}I_{kljc}T1old_{ci}T1old_{bk}T1old_{al}
+ - 1.0\sum_{kcd}I_{kacd}T1old_{di}T1old_{cj}T1old_{bk}
+ + 1.0\sum_{kcd}I_{kbcd}T1old_{di}T1old_{cj}T1old_{ak}
+ - 1.0\sum_{klcd}I_{klcd}T1old_{ak}T1old_{dl}T2old_{bcji}
+ - 0.5\sum_{klcd}I_{klcd}T1old_{bk}T1old_{al}T2old_{dcji}
+ + 1.0\sum_{klcd}I_{klcd}T1old_{bk}T1old_{dl}T2old_{acji}
+ - 1.0\sum_{klcd}I_{klcd}T1old_{di}T1old_{ak}T2old_{bclj}
+ + 1.0\sum_{klcd}I_{klcd}T1old_{di}T1old_{bk}T2old_{aclj}
+ - 0.5\sum_{klcd}I_{klcd}T1old_{di}T1old_{cj}T2old_{balk}
+ + 1.0\sum_{klcd}I_{klcd}T1old_{di}T1old_{ck}T2old_{balj}
+ + 1.0\sum_{klcd}I_{klcd}T1old_{dj}T1old_{ak}T2old_{bcli}
+ - 1.0\sum_{klcd}I_{klcd}T1old_{dj}T1old_{bk}T2old_{acli}
+ - 1.0\sum_{klcd}I_{klcd}T1old_{dj}T1old_{ck}T2old_{bali}
+ + 1.0\sum_{klcd}I_{klcd}T1old_{di}T1old_{cj}T1old_{bk}T1old_{al}
+T2 += 1.0*einsum('baji->abij', I)
+T2 += 1.0*einsum('ki,bakj->abij', f, T2old)
+T2 += -1.0*einsum('kj,baki->abij', f, T2old)
+T2 += 1.0*einsum('ac,bcji->abij', f, T2old)
+T2 += -1.0*einsum('bc,acji->abij', f, T2old)
+T2 += 1.0*einsum('Iai,Ibj->abij', g, U11old)
+T2 += -1.0*einsum('Iaj,Ibi->abij', g, U11old)
+T2 += -1.0*einsum('Ibi,Iaj->abij', g, U11old)
+T2 += 1.0*einsum('Ibj,Iai->abij', g, U11old)
+T2 += -1.0*einsum('kaji,bk->abij', I, T1old)
+T2 += 1.0*einsum('kbji,ak->abij', I, T1old)
+T2 += -1.0*einsum('baic,cj->abij', I, T1old)
+T2 += 1.0*einsum('bajc,ci->abij', I, T1old)
+T2 += -0.5*einsum('klji,balk->abij', I, T2old)
+T2 += 1.0*einsum('kaic,bckj->abij', I, T2old)
+T2 += -1.0*einsum('kajc,bcki->abij', I, T2old)
+T2 += -1.0*einsum('kbic,ackj->abij', I, T2old)
+T2 += 1.0*einsum('kbjc,acki->abij', I, T2old)
+T2 += -0.5*einsum('bacd,dcji->abij', I, T2old)
+T2 += -1.0*einsum('kc,ak,bcji->abij', f, T1old, T2old)
+T2 += 1.0*einsum('kc,bk,acji->abij', f, T1old, T2old)
+T2 += 1.0*einsum('kc,ci,bakj->abij', f, T1old, T2old)
+T2 += -1.0*einsum('kc,cj,baki->abij', f, T1old, T2old)
+T2 += -1.0*einsum('Iki,ak,Ibj->abij', g, T1old, U11old)
+T2 += 1.0*einsum('Iki,bk,Iaj->abij', g, T1old, U11old)
+T2 += 1.0*einsum('Iki,bakj,I->abij', g, T2old, S1old)
+T2 += 1.0*einsum('Ikj,ak,Ibi->abij', g, T1old, U11old)
+T2 += -1.0*einsum('Ikj,bk,Iai->abij', g, T1old, U11old)
+T2 += -1.0*einsum('Ikj,baki,I->abij', g, T2old, S1old)
+T2 += 1.0*einsum('Iac,ci,Ibj->abij', g, T1old, U11old)
+T2 += -1.0*einsum('Iac,cj,Ibi->abij', g, T1old, U11old)
+T2 += 1.0*einsum('Iac,bcji,I->abij', g, T2old, S1old)
+T2 += -1.0*einsum('Ibc,ci,Iaj->abij', g, T1old, U11old)
+T2 += 1.0*einsum('Ibc,cj,Iai->abij', g, T1old, U11old)
+T2 += -1.0*einsum('Ibc,acji,I->abij', g, T2old, S1old)
+T2 += 1.0*einsum('klji,bk,al->abij', I, T1old, T1old)
+T2 += 1.0*einsum('kaic,cj,bk->abij', I, T1old, T1old)
+T2 += -1.0*einsum('kajc,ci,bk->abij', I, T1old, T1old)
+T2 += -1.0*einsum('kbic,cj,ak->abij', I, T1old, T1old)
+T2 += 1.0*einsum('kbjc,ci,ak->abij', I, T1old, T1old)
+T2 += 1.0*einsum('bacd,di,cj->abij', I, T1old, T1old)
+T2 += 1.0*einsum('Ikc,acji,Ibk->abij', g, T2old, U11old)
+T2 += -1.0*einsum('Ikc,acki,Ibj->abij', g, T2old, U11old)
+T2 += 1.0*einsum('Ikc,ackj,Ibi->abij', g, T2old, U11old)
+T2 += -1.0*einsum('Ikc,baki,Icj->abij', g, T2old, U11old)
+T2 += 1.0*einsum('Ikc,bakj,Ici->abij', g, T2old, U11old)
+T2 += -1.0*einsum('Ikc,bcji,Iak->abij', g, T2old, U11old)
+T2 += 1.0*einsum('Ikc,bcki,Iaj->abij', g, T2old, U11old)
+T2 += -1.0*einsum('Ikc,bckj,Iai->abij', g, T2old, U11old)
+T2 += 1.0*einsum('klic,ak,bclj->abij', I, T1old, T2old)
+T2 += -1.0*einsum('klic,bk,aclj->abij', I, T1old, T2old)
+T2 += 0.5*einsum('klic,cj,balk->abij', I, T1old, T2old)
+T2 += -1.0*einsum('klic,ck,balj->abij', I, T1old, T2old)
+T2 += -1.0*einsum('kljc,ak,bcli->abij', I, T1old, T2old)
+T2 += 1.0*einsum('kljc,bk,acli->abij', I, T1old, T2old)
+T2 += -0.5*einsum('kljc,ci,balk->abij', I, T1old, T2old)
+T2 += 1.0*einsum('kljc,ck,bali->abij', I, T1old, T2old)
+T2 += 0.5*einsum('kacd,bk,dcji->abij', I, T1old, T2old)
+T2 += -1.0*einsum('kacd,di,bckj->abij', I, T1old, T2old)
+T2 += 1.0*einsum('kacd,dj,bcki->abij', I, T1old, T2old)
+T2 += -1.0*einsum('kacd,dk,bcji->abij', I, T1old, T2old)
+T2 += -0.5*einsum('kbcd,ak,dcji->abij', I, T1old, T2old)
+T2 += 1.0*einsum('kbcd,di,ackj->abij', I, T1old, T2old)
+T2 += -1.0*einsum('kbcd,dj,acki->abij', I, T1old, T2old)
+T2 += 1.0*einsum('kbcd,dk,acji->abij', I, T1old, T2old)
+T2 += 0.5*einsum('klcd,adji,bclk->abij', I, T2old, T2old)
+T2 += -1.0*einsum('klcd,adki,bclj->abij', I, T2old, T2old)
+T2 += -0.5*einsum('klcd,baki,dclj->abij', I, T2old, T2old)
+T2 += -0.5*einsum('klcd,bdji,aclk->abij', I, T2old, T2old)
+T2 += 1.0*einsum('klcd,bdki,aclj->abij', I, T2old, T2old)
+T2 += 0.25*einsum('klcd,dcji,balk->abij', I, T2old, T2old)
+T2 += -0.5*einsum('klcd,dcki,balj->abij', I, T2old, T2old)
+T2 += -1.0*einsum('Ikc,ak,bcji,I->abij', g, T1old, T2old, S1old)
+T2 += 1.0*einsum('Ikc,bk,acji,I->abij', g, T1old, T2old, S1old)
+T2 += -1.0*einsum('Ikc,ci,ak,Ibj->abij', g, T1old, T1old, U11old)
+T2 += 1.0*einsum('Ikc,ci,bk,Iaj->abij', g, T1old, T1old, U11old)
+T2 += 1.0*einsum('Ikc,ci,bakj,I->abij', g, T1old, T2old, S1old)
+T2 += 1.0*einsum('Ikc,cj,ak,Ibi->abij', g, T1old, T1old, U11old)
+T2 += -1.0*einsum('Ikc,cj,bk,Iai->abij', g, T1old, T1old, U11old)
+T2 += -1.0*einsum('Ikc,cj,baki,I->abij', g, T1old, T2old, S1old)
+T2 += -1.0*einsum('klic,cj,bk,al->abij', I, T1old, T1old, T1old)
+T2 += 1.0*einsum('kljc,ci,bk,al->abij', I, T1old, T1old, T1old)
+T2 += -1.0*einsum('kacd,di,cj,bk->abij', I, T1old, T1old, T1old)
+T2 += 1.0*einsum('kbcd,di,cj,ak->abij', I, T1old, T1old, T1old)
+T2 += -1.0*einsum('klcd,ak,dl,bcji->abij', I, T1old, T1old, T2old)
+T2 += -0.5*einsum('klcd,bk,al,dcji->abij', I, T1old, T1old, T2old)
+T2 += 1.0*einsum('klcd,bk,dl,acji->abij', I, T1old, T1old, T2old)
+T2 += -1.0*einsum('klcd,di,ak,bclj->abij', I, T1old, T1old, T2old)
+T2 += 1.0*einsum('klcd,di,bk,aclj->abij', I, T1old, T1old, T2old)
+T2 += -0.5*einsum('klcd,di,cj,balk->abij', I, T1old, T1old, T2old)
+T2 += 1.0*einsum('klcd,di,ck,balj->abij', I, T1old, T1old, T2old)
+T2 += 1.0*einsum('klcd,dj,ak,bcli->abij', I, T1old, T1old, T2old)
+T2 += -1.0*einsum('klcd,dj,bk,acli->abij', I, T1old, T1old, T2old)
+T2 += -1.0*einsum('klcd,dj,ck,bali->abij', I, T1old, T1old, T2old)
+T2 += 1.0*einsum('klcd,di,cj,bk,al->abij', I, T1old, T1old, T1old, T1old)
+
+ ----------- p1 term -----------
+
+ + 1.0G_{I}
+ + 1.0\sum_{J}w_{IJ}S1old_{J}
+ + 1.0\sum_{ia}f_{ia}U11old_{Iai}
+ + 1.0\sum_{ia}g_{Iia}T1old_{ai}
+ + 1.0\sum_{Jia}g_{Jia}S1old_{J}U11old_{Iai}
+ - 1.0\sum_{ijab}I_{ijab}T1old_{bi}U11old_{Iaj}
+ += 1.0*einsum('I->I', G)
+ += 1.0*einsum('IJ,J->I', w, S1old)
+ += 1.0*einsum('ia,Iai->I', f, U11old)
+ += 1.0*einsum('Iia,ai->I', g, T1old)
+ += 1.0*einsum('Jia,J,Iai->I', g, S1old, U11old)
+ += -1.0*einsum('ijab,bi,Iaj->I', I, T1old, U11old)
+
+ ----------- p1E1 term -----------
+
+ + 1.0g_{Iai}
+ - 1.0\sum_{j}f_{ji}U11old_{Iaj}
+ + 1.0\sum_{b}f_{ab}U11old_{Ibi}
+ + 1.0\sum_{J}w_{IJ}U11old_{Jai}
+ - 1.0\sum_{j}g_{Iji}T1old_{aj}
+ + 1.0\sum_{b}g_{Iab}T1old_{bi}
+ - 1.0\sum_{jb}g_{Ijb}T2old_{abji}
+ - 1.0\sum_{jb}I_{jaib}U11old_{Ibj}
+ - 1.0\sum_{jb}f_{jb}T1old_{aj}U11old_{Ibi}
+ - 1.0\sum_{jb}f_{jb}T1old_{bi}U11old_{Iaj}
+ - 1.0\sum_{jb}g_{Ijb}T1old_{bi}T1old_{aj}
+ - 1.0\sum_{Jj}g_{Jji}S1old_{J}U11old_{Iaj}
+ + 1.0\sum_{Jb}g_{Jab}S1old_{J}U11old_{Ibi}
+ - 1.0\sum_{Jjb}g_{Jjb}U11old_{Iaj}U11old_{Jbi}
+ - 1.0\sum_{Jjb}g_{Jjb}U11old_{Ibi}U11old_{Jaj}
+ + 1.0\sum_{Jjb}g_{Jjb}U11old_{Ibj}U11old_{Jai}
+ - 1.0\sum_{jkb}I_{jkib}T1old_{aj}U11old_{Ibk}
+ + 1.0\sum_{jkb}I_{jkib}T1old_{bj}U11old_{Iak}
+ + 1.0\sum_{jbc}I_{jabc}T1old_{ci}U11old_{Ibj}
+ - 1.0\sum_{jbc}I_{jabc}T1old_{cj}U11old_{Ibi}
+ + 1.0\sum_{jkbc}I_{jkbc}T2old_{acji}U11old_{Ibk}
+ + 0.5\sum_{jkbc}I_{jkbc}T2old_{ackj}U11old_{Ibi}
+ + 0.5\sum_{jkbc}I_{jkbc}T2old_{cbji}U11old_{Iak}
+ - 1.0\sum_{Jjb}g_{Jjb}T1old_{aj}S1old_{J}U11old_{Ibi}
+ - 1.0\sum_{Jjb}g_{Jjb}T1old_{bi}S1old_{J}U11old_{Iaj}
+ - 1.0\sum_{jkbc}I_{jkbc}T1old_{aj}T1old_{ck}U11old_{Ibi}
+ + 1.0\sum_{jkbc}I_{jkbc}T1old_{ci}T1old_{aj}U11old_{Ibk}
+ - 1.0\sum_{jkbc}I_{jkbc}T1old_{ci}T1old_{bj}U11old_{Iak}
+ += 1.0*einsum('Iai->Iai', g)
+ += -1.0*einsum('ji,Iaj->Iai', f, U11old)
+ += 1.0*einsum('ab,Ibi->Iai', f, U11old)
+ += 1.0*einsum('IJ,Jai->Iai', w, U11old)
+ += -1.0*einsum('Iji,aj->Iai', g, T1old)
+ += 1.0*einsum('Iab,bi->Iai', g, T1old)
+ += -1.0*einsum('Ijb,abji->Iai', g, T2old)
+ += -1.0*einsum('jaib,Ibj->Iai', I, U11old)
+ += -1.0*einsum('jb,aj,Ibi->Iai', f, T1old, U11old)
+ += -1.0*einsum('jb,bi,Iaj->Iai', f, T1old, U11old)
+ += -1.0*einsum('Ijb,bi,aj->Iai', g, T1old, T1old)
+ += -1.0*einsum('Jji,J,Iaj->Iai', g, S1old, U11old)
+ += 1.0*einsum('Jab,J,Ibi->Iai', g, S1old, U11old)
+ += -1.0*einsum('Jjb,Iaj,Jbi->Iai', g, U11old, U11old)
+ += -1.0*einsum('Jjb,Ibi,Jaj->Iai', g, U11old, U11old)
+ += 1.0*einsum('Jjb,Ibj,Jai->Iai', g, U11old, U11old)
+ += -1.0*einsum('jkib,aj,Ibk->Iai', I, T1old, U11old)
+ += 1.0*einsum('jkib,bj,Iak->Iai', I, T1old, U11old)
+ += 1.0*einsum('jabc,ci,Ibj->Iai', I, T1old, U11old)
+ += -1.0*einsum('jabc,cj,Ibi->Iai', I, T1old, U11old)
+ += 1.0*einsum('jkbc,acji,Ibk->Iai', I, T2old, U11old)
+ += 0.5*einsum('jkbc,ackj,Ibi->Iai', I, T2old, U11old)
+ += 0.5*einsum('jkbc,cbji,Iak->Iai', I, T2old, U11old)
+ += -1.0*einsum('Jjb,aj,J,Ibi->Iai', g, T1old, S1old, U11old)
+ += -1.0*einsum('Jjb,bi,J,Iaj->Iai', g, T1old, S1old, U11old)
+ += -1.0*einsum('jkbc,aj,ck,Ibi->Iai', I, T1old, T1old, U11old)
+ += 1.0*einsum('jkbc,ci,aj,Ibk->Iai', I, T1old, T1old, U11old)
+ += -1.0*einsum('jkbc,ci,bj,Iak->Iai', I, T1old, T1old, U11old)
