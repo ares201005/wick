@@ -1,3 +1,7 @@
+
+from sys import path as syspath
+syspath.append('../')
+
 from fractions import Fraction
 from wick.expression import AExpression
 from wick.wick import apply_wick
@@ -23,4 +27,6 @@ S = bra*(H + HT + Fraction('1/2')*HTT + Fraction('1/6')*HTTT)
 out = apply_wick(S)
 out.resolve()
 final = AExpression(Ex=out)
+
 print(final)
+print('\n',final._print_einsum())

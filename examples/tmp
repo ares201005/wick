@@ -1,0 +1,147 @@
+
+ ----------- T-1 term -----------
+
+H1 -1\sum_{0}\sum_{1}f_{01}a_1(occ)a^{\dagger}_0(occ) 
+  + 1\sum_{0}\sum_{0}f_{00}a^{\dagger}_0(occ)a_0(vir) 
+  + 1\sum_{0}\sum_{0}f_{00}a^{\dagger}_0(vir)a_0(occ) 
+  + 1\sum_{0}\sum_{1}f_{01}a^{\dagger}_0(vir)a_1(vir)
+H2 
+   1/4\sum_{0}\sum_{1}\sum_{2}\sum_{3}V_{0123}a_3(occ)a_2(occ)a^{\dagger}_0(occ)a^{\dagger}_1(occ) 
++ -1/2\sum_{0}\sum_{1}\sum_{2}\sum_{0}V_{0120}a_2(occ)a^{\dagger}_0(occ)a^{\dagger}_1(occ)a_0(vir) 
+ + 1/4\sum_{0}\sum_{1}\sum_{0}\sum_{1}V_{0101}a^{\dagger}_0(occ)a^{\dagger}_1(occ)a_1(vir)a_0(vir) 
++ -1/2\sum_{0}\sum_{0}\sum_{1}\sum_{2}V_{0012}a^{\dagger}_0(vir)a_2(occ)a_1(occ)a^{\dagger}_0(occ) 
++ -1\sum_{0}\sum_{0}\sum_{1}\sum_{1}V_{0011}a^{\dagger}_0(vir)a_1(occ)a^{\dagger}_0(occ)a_1(vir) 
++ -1/2\sum_{0}\sum_{0}\sum_{1}\sum_{2}V_{0012}a^{\dagger}_0(vir)a^{\dagger}_0(occ)a_2(vir)a_1(vir) 
++ 1/4\sum_{0}\sum_{1}\sum_{0}\sum_{1}V_{0101}a^{\dagger}_0(vir)a^{\dagger}_1(vir)a_1(occ)a_0(occ) 
++ -1/2\sum_{0}\sum_{1}\sum_{0}\sum_{2}V_{0102}a^{\dagger}_0(vir)a^{\dagger}_1(vir)a_0(occ)a_2(vir) 
++ 1/4\sum_{0}\sum_{1}\sum_{2}\sum_{3}V_{0123}a^{\dagger}_0(vir)a^{\dagger}_1(vir)a_3(vir)a_2(vir)
+
+Hp 
+  1\sum_{0}\sum_{1}w_{01}b^{\dagger}_0(nm)b_1(nm) 
++ 1\sum_{0}G_{0}b^{\dagger}_0(nm) + 1\sum_{0}G_{0}b_0(nm)
+
+Hep 
+  -1\sum_{0}\sum_{0}\sum_{1}g_{001}b_0(nm)a_1(occ)a^{\dagger}_0(occ) 
++ -1\sum_{0}\sum_{0}\sum_{1}g_{001}b^{\dagger}_0(nm)a_1(occ)a^{\dagger}_0(occ) 
++ 1\sum_{0}\sum_{0}\sum_{0}g_{000}b_0(nm)a^{\dagger}_0(occ)a_0(vir) 
++ 1\sum_{0}\sum_{0}\sum_{0}g_{000}b^{\dagger}_0(nm)a^{\dagger}_0(occ)a_0(vir) 
++ 1\sum_{0}\sum_{0}\sum_{0}g_{000}b_0(nm)a^{\dagger}_0(vir)a_0(occ) 
++ 1\sum_{0}\sum_{0}\sum_{0}g_{000}b^{\dagger}_0(nm)a^{\dagger}_0(vir)a_0(occ) 
++ 1\sum_{0}\sum_{0}\sum_{1}g_{001}b_0(nm)a^{\dagger}_0(vir)a_1(vir) 
++ 1\sum_{0}\sum_{0}\sum_{1}g_{001}b^{\dagger}_0(nm)a^{\dagger}_0(vir)a_1(vir)
+
+ + 1.0f_{ai}
+ + 1.0\sum_{I}G_{I}u_{Iai}
+ - 1.0\sum_{j}f_{ji}t_{aj}
+ + 1.0\sum_{b}f_{ab}t_{bi}
+ + 1.0\sum_{I}g_{Iai}s_{I}
+ - 1.0\sum_{jb}f_{jb}t2_{abji}
+ - 1.0\sum_{Ij}g_{Iji}u_{Iaj}
+ + 1.0\sum_{Ib}g_{Iab}u_{Ibi}
+ - 1.0\sum_{jb}V_{jaib}t_{bj}
+ + 0.5\sum_{jkb}V_{jkib}t2_{abkj}
+ - 0.5\sum_{jbc}V_{jabc}t2_{cbji}
+ - 1.0\sum_{jb}f_{jb}t_{bi}t_{aj}
+ - 1.0\sum_{Ij}g_{Iji}t_{aj}s_{I}
+ + 1.0\sum_{Ib}g_{Iab}t_{bi}s_{I}
+ - 1.0\sum_{Ijb}g_{Ijb}t_{aj}u_{Ibi}
+ - 1.0\sum_{Ijb}g_{Ijb}t_{bi}u_{Iaj}
+ + 1.0\sum_{Ijb}g_{Ijb}t_{bj}u_{Iai}
+ - 1.0\sum_{Ijb}g_{Ijb}t2_{abji}s_{I}
+ - 1.0\sum_{jkb}V_{jkib}t_{aj}t_{bk}
+ + 1.0\sum_{jbc}V_{jabc}t_{ci}t_{bj}
+ - 0.5\sum_{jkbc}V_{jkbc}t_{aj}t2_{cbki}
+ - 0.5\sum_{jkbc}V_{jkbc}t_{ci}t2_{abkj}
+ + 1.0\sum_{jkbc}V_{jkbc}t_{cj}t2_{abki}
+ + 1.0\sum_{jkbc}V_{jkbc}t_{ci}t_{aj}t_{bk}
+T1 += 1.0*einsum('ai->ai', f)
+T1 += 1.0*einsum('I,Iai->ai', G, u)
+T1 += -1.0*einsum('ji,aj->ai', f, t)
+T1 += 1.0*einsum('ab,bi->ai', f, t)
+T1 += 1.0*einsum('Iai,I->ai', g, s)
+T1 += -1.0*einsum('jb,abji->ai', f, t2)
+T1 += -1.0*einsum('Iji,Iaj->ai', g, u)
+T1 += 1.0*einsum('Iab,Ibi->ai', g, u)
+T1 += -1.0*einsum('jaib,bj->ai', V, t)
+T1 += 0.5*einsum('jkib,abkj->ai', V, t2)
+T1 += -0.5*einsum('jabc,cbji->ai', V, t2)
+T1 += -1.0*einsum('jb,bi,aj->ai', f, t, t)
+T1 += -1.0*einsum('Iji,aj,I->ai', g, t, s)
+T1 += 1.0*einsum('Iab,bi,I->ai', g, t, s)
+T1 += -1.0*einsum('Ijb,aj,Ibi->ai', g, t, u)
+T1 += -1.0*einsum('Ijb,bi,Iaj->ai', g, t, u)
+T1 += 1.0*einsum('Ijb,bj,Iai->ai', g, t, u)
+T1 += -1.0*einsum('Ijb,abji,I->ai', g, t2, s)
+T1 += -1.0*einsum('jkib,aj,bk->ai', V, t, t)
+T1 += 1.0*einsum('jabc,ci,bj->ai', V, t, t)
+T1 += -0.5*einsum('jkbc,aj,cbki->ai', V, t, t2)
+T1 += -0.5*einsum('jkbc,ci,abkj->ai', V, t, t2)
+T1 += 1.0*einsum('jkbc,cj,abki->ai', V, t, t2)
+T1 += 1.0*einsum('jkbc,ci,aj,bk->ai', V, t, t, t)
+
+ ----------- T-2 term -----------
+
+
+ ----------- p1 term -----------
+
+ + 1.0G_{I}
+ + 1.0\sum_{J}w_{IJ}s_{J}
+ + 1.0\sum_{ia}f_{ia}u_{Iai}
+ + 1.0\sum_{ia}g_{Iia}t_{ai}
+ + 1.0\sum_{Jia}g_{Jia}s_{J}u_{Iai}
+ - 1.0\sum_{ijab}V_{ijab}t_{bi}u_{Iaj}
+ += 1.0*einsum('I->I', G)
+ += 1.0*einsum('IJ,J->I', w, s)
+ += 1.0*einsum('ia,Iai->I', f, u)
+ += 1.0*einsum('Iia,ai->I', g, t)
+ += 1.0*einsum('Jia,J,Iai->I', g, s, u)
+ += -1.0*einsum('ijab,bi,Iaj->I', V, t, u)
+
+ ----------- p1E1 term -----------
+
+ + 1.0g_{Iai}
+ - 1.0\sum_{j}f_{ji}u_{Iaj}
+ + 1.0\sum_{b}f_{ab}u_{Ibi}
+ + 1.0\sum_{J}w_{IJ}u_{Jai}
+ - 1.0\sum_{j}g_{Iji}t_{aj}
+ + 1.0\sum_{b}g_{Iab}t_{bi}
+ - 1.0\sum_{jb}g_{Ijb}t2_{abji}
+ - 1.0\sum_{jb}V_{jaib}u_{Ibj}
+ - 1.0\sum_{jb}f_{jb}t_{aj}u_{Ibi}
+ - 1.0\sum_{jb}f_{jb}t_{bi}u_{Iaj}
+ - 1.0\sum_{jb}g_{Ijb}t_{bi}t_{aj}
+ - 1.0\sum_{Jj}g_{Jji}s_{J}u_{Iaj}
+ + 1.0\sum_{Jb}g_{Jab}s_{J}u_{Ibi}
+ - 1.0\sum_{Jjb}g_{Jjb}u_{Iaj}u_{Jbi}
+ - 1.0\sum_{Jjb}g_{Jjb}u_{Ibi}u_{Jaj}
+ + 1.0\sum_{Jjb}g_{Jjb}u_{Ibj}u_{Jai}
+ - 1.0\sum_{jkb}V_{jkib}t_{aj}u_{Ibk}
+ + 1.0\sum_{jkb}V_{jkib}t_{bj}u_{Iak}
+ + 1.0\sum_{jbc}V_{jabc}t_{ci}u_{Ibj}
+ - 1.0\sum_{jbc}V_{jabc}t_{cj}u_{Ibi}
+ + 1.0\sum_{jkbc}V_{jkbc}t2_{acji}u_{Ibk}
+ + 0.5\sum_{jkbc}V_{jkbc}t2_{ackj}u_{Ibi}
+ + 0.5\sum_{jkbc}V_{jkbc}t2_{cbji}u_{Iak}
+ += 1.0*einsum('Iai->Iai', g)
+ += -1.0*einsum('ji,Iaj->Iai', f, u)
+ += 1.0*einsum('ab,Ibi->Iai', f, u)
+ += 1.0*einsum('IJ,Jai->Iai', w, u)
+ += -1.0*einsum('Iji,aj->Iai', g, t)
+ += 1.0*einsum('Iab,bi->Iai', g, t)
+ += -1.0*einsum('Ijb,abji->Iai', g, t2)
+ += -1.0*einsum('jaib,Ibj->Iai', V, u)
+ += -1.0*einsum('jb,aj,Ibi->Iai', f, t, u)
+ += -1.0*einsum('jb,bi,Iaj->Iai', f, t, u)
+ += -1.0*einsum('Ijb,bi,aj->Iai', g, t, t)
+ += -1.0*einsum('Jji,J,Iaj->Iai', g, s, u)
+ += 1.0*einsum('Jab,J,Ibi->Iai', g, s, u)
+ += -1.0*einsum('Jjb,Iaj,Jbi->Iai', g, u, u)
+ += -1.0*einsum('Jjb,Ibi,Jaj->Iai', g, u, u)
+ += 1.0*einsum('Jjb,Ibj,Jai->Iai', g, u, u)
+ += -1.0*einsum('jkib,aj,Ibk->Iai', V, t, u)
+ += 1.0*einsum('jkib,bj,Iak->Iai', V, t, u)
+ += 1.0*einsum('jabc,ci,Ibj->Iai', V, t, u)
+ += -1.0*einsum('jabc,cj,Ibi->Iai', V, t, u)
+ += 1.0*einsum('jkbc,acji,Ibk->Iai', V, t2, u)
+ += 0.5*einsum('jkbc,ackj,Ibi->Iai', V, t2, u)
+ += 0.5*einsum('jkbc,cbji,Iak->Iai', V, t2, u)

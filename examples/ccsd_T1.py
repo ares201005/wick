@@ -1,3 +1,7 @@
+
+from sys import path as syspath
+syspath.append('../')
+
 from fractions import Fraction
 from wick.expression import AExpression
 from wick.wick import apply_wick
