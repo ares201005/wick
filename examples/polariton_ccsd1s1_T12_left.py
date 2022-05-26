@@ -147,7 +147,7 @@ if get_EOMCCSD:
     L11 = deEPS1("L11", ["nm"], ["occ"], ["vir"])
 
     T = T1 + T2 + S1 + U11
-    R = RS + RD + R1 + R11
+    L = LS + LD + L1 + L11
 
     print('\nLS=', LS)
     print('\nLD=', LD)
