@@ -242,6 +242,102 @@ def E0(name, index_key=None):
         Term(1, [], [Tensor([], name)], [], [], index_key=index_key)])
 
 
+def deE1(name, ospaces, vspaces, index_key=None):
+    """
+    Return the tensor representation of a Fermion excitation operator
+
+    name (string): name of the tensor
+    ospaces (list): list of occupied spaces
+    vspaces (list): list of virtual spaces
+    """
+    terms = []
+    for os in ospaces:
+        for vs in vspaces:
+            i = Idx(0, os)
+            a = Idx(0, vs)
+            sigmas = [Sigma(i), Sigma(a)]
+            tensors = [Tensor([a, i], name)]
+            operators = [FOperator(i, True), FOperator(a, False)]
+            e1 = Term(1, sigmas, tensors, operators, [], index_key=index_key)
+            terms.append(e1)
+    return Expression(terms)
+
+def deE2(name, ospaces, vspaces, index_key=None):
+    """
+    Return the tensor representation of a Fermion excitation operator
+
+    name (string): name of the tensor
+    ospaces (list): list of occupied spaces
+    vspaces (list): list of virtual spaces
+    """
+    terms = []
+    sym = get_sym(True)
+    for i1, o1 in enumerate(ospaces):
+        for o2 in ospaces[i1:]:
+            for j1, v1 in enumerate(vspaces):
+                for v2 in vspaces[j1:]:
+                    i = Idx(0, o1)
+                    a = Idx(0, v1)
+                    j = Idx(1, o2)
+                    b = Idx(1, v2)
+                    scalar = 1
+                    if o1 == o2:
+                        scalar *= Fraction(1, 2)
+                    if v1 == v2:
+                        scalar *= Fraction(1, 2)
+                    sums = [Sigma(a), Sigma(i), Sigma(b), Sigma(j)]
+                    tensors = [Tensor([a, b, i,j], name, sym=sym)]
+                    operators = [
+                        FOperator(i, True), FOperator(j, True),
+                        FOperator(b, False), FOperator(a, False)]
+                    e2 = Term(scalar, sums, tensors, operators,
+                              [], index_key=index_key)
+                    terms.append(e2)
+    return Expression(terms)
+
+def deP1(name, spaces, index_key=None):
+    """
+    Return the tensor representation of a Boson excitation operator
+
+    name (string): name of the tensor
+    spaces (list): list of spaces
+    """
+    terms = []
+    for s in spaces:
+        x = Idx(0, s, fermion=False)
+        sums = [Sigma(x)]
+        tensors = [Tensor([x], name)]
+        operators = [BOperator(x, False)]
+        e1 = Term(1, sums, tensors, operators, [], index_key=index_key)
+        terms.append(e1)
+    return Expression(terms)
+
+def deEPS1(name, bspaces, ospaces, vspaces, index_key=None):
+    """
+    Return the tensor representation of a coupled
+    Fermion-Boson excitation operator
+
+    name (string): name of the tensor
+    bspaces (list): list of Boson spaces
+    ospaces (list): list of occupied spaces
+    vspaces (list): list of virtual spaces
+    """
+    terms = []
+    for bs in bspaces:
+        for os in ospaces:
+            for vs in vspaces:
+                x = Idx(0, bs, fermion=False)
+                i = Idx(0, os)
+                a = Idx(0, vs)
+                sums = [Sigma(x), Sigma(i), Sigma(a)]
+                tensors = [Tensor([x, a, i], name)]
+                operators = [BOperator(x, False),
+                             FOperator(i, True), FOperator(a, False)]
+                e1 = Term(1, sums, tensors, operators, [], index_key=index_key)
+                terms.append(e1)
+    return Expression(terms)
+
+
 def E1(name, ospaces, vspaces, index_key=None):
     """
     Return the tensor representation of a Fermion excitation operator
@@ -383,6 +479,7 @@ def Eea2(name, ospaces, vspaces, index_key=None):
                 e2 = Term(s, sums, tensors, operators, [], index_key=index_key)
                 terms.append(e2)
     return Expression(terms)
+
 
 
 def P1(name, spaces, index_key=None):

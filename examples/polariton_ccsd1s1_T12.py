@@ -15,7 +15,9 @@ from wick.convenience import P3, P2, P1, E1, E2, EPS1, braE1, braE2, braP1, braP
 # g: e-ph coupling matrix
 # h: 
 # G: single model peice of Hamiltonian
-# 
+# H:  
+#
+
 H1 = one_e("f", ["occ", "vir"], norder=True)
 H2 = two_e("I", ["occ", "vir"], norder=True, compress=True)
 #H2 = two_e("I", ["occ", "vir"], norder=True)
@@ -26,14 +28,14 @@ H2 = two_e("I", ["occ", "vir"], norder=True, compress=True)
 #  Fock matrix and matrix of normal modes are not assumed to be diagonal, even though they will usually be diagonal
 # i./e, w_{01} = 0, w_{00} is the vibrational mode (freq)
 
-Hp = two_p("w") # + one_p("G")
+Hp = two_p("w") + one_p("G")
 print('\ntwo_p(w)=', two_p("w"))
 print('\none_p(G)=', one_p("G"))
 print('\nHp=', Hp, '\n')
 
 # e-p coupling, g^x_{qp}
 Hep = ep11("g", ["occ", "vir"], ["nm"], norder=True)
-H = H1 + H2 + Hp + Hep
+H = H1 + H2 #+ Hp + Hep
 
 print('\n H1  =\n', H1)
 print('\n H2  =\n', H2)
@@ -145,8 +147,11 @@ if get_EOMCCSD:
     R1 = P1("R1", ["nm"])
     R11 = EPS1("R11", ["nm"], ["occ"], ["vir"])
 
-    T = T1 + T2 + S1 + U11
-    R = RS + RD + R1 + R11
+    T = T1 + T2 #+ S1 + U11
+    R = RS + RD #+ R1 + R11
+
+    print('\nRS=', RS)
+    print('\nRD=', RD)
 
     HT = commute(H, T)
     HTT = commute(HT, T)
@@ -165,14 +170,18 @@ if get_EOMCCSD:
     # =================  EOM - sigS part =================
     print('\nEOM-CCSD sigS part\n')
     bra = braE1("occ", "vir")
+    sys.stdout.flush()
 
     S = bra*(Hbar - E0)*R
 
     out = apply_wick(S)
     out.resolve()
     final = AExpression(Ex=out)
+    final.sort_tensors()
     print(final)
     print(final._print_einsum('SigS'))
+
+    sys.stdout.flush()
 
     # =================  EOM - sigD part =================
     print('\nEOM-CCSD sigD part\n')
@@ -186,7 +195,9 @@ if get_EOMCCSD:
     print(final)
     print('\n einsum format=\n')
     print(final._print_einsum('SigD'))
+    sys.stdout.flush()
 
+    sys.exit()
     # =================  EOM - sig1 part =================
     print('\nEOM-CCSD sig1 part\n')
     bra = braP1('nm') 
@@ -199,6 +210,7 @@ if get_EOMCCSD:
     print(final)
     print('\n einsum format=\n')
     print(final._print_einsum('Sig1'))
+    sys.stdout.flush()
     
     # =================  EOM - sigU1 part =================
     print('\nEOM-CCSD sigU1 part\n')
