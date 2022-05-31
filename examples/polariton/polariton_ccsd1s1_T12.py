@@ -8,7 +8,7 @@ from fractions import Fraction
 from wick.expression import AExpression
 from wick.wick import apply_wick
 from wick.convenience import one_e, two_e, one_p, two_p, ep11
-from wick.convenience import P3, P2, P1, E1, E2, EPS1, braE1, braE2, braP1, braP1E1, commute
+from wick.convenience import P3, P2, P1, E1, E2, EPS1, braE1, braE2, braPn, braP1, braP1E1, commute
 
 # f: fork matrix
 # I: two body integral (ERIs)
@@ -45,8 +45,14 @@ print('\n Hp  =\n', Hp)
 
 #print('\nHamiltonain is\n', H)
 
-get_CCSD = False
+get_CCSD = True #False
 get_EOMCCSD = True
+
+# test braPn
+bra = braP1('nm') 
+bra1 = braPn('nm',n=4) 
+print(bra)
+print(bra1)
 
 if get_CCSD:
     # Fermionic excitations (single and double)
@@ -73,6 +79,8 @@ if get_CCSD:
     HTT = commute(HT, T)
     HTTT = commute(commute(commute(H2, T1), T1), T1)
 
+    # e^{-T} H e^T 
+    # <HF | e^{-T} H e^{T} | HF> 
     S = bra*(H + HT + Fraction('1/2')*HTT + Fraction('1/6')*HTTT)
     out = apply_wick(S)
     out.resolve()
@@ -95,8 +103,10 @@ if get_CCSD:
     print(final)
     print(final._print_einsum('T2'))
 
-    print('\n ----------- p1 term -----------\n')
-    bra = braP1('nm') 
+    print('\n ----------- pn term -----------\n')
+    #bra = braP1('nm') 
+    bra = braPn('nm',n=4) 
+
     Hbar = H + HT + Fraction('1/2')*HTT
     Hbar += Fraction('1/6')*HTTT
 
