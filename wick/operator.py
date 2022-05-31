@@ -3,6 +3,7 @@
 from .index import Idx
 from .index import idx_copy
 from .index import is_occupied
+import sys
 
 
 class Projector(object):
@@ -258,6 +259,19 @@ class Tensor(object):
         newindices = [idx_copy(i) for i in self.indices]
         return Tensor(newindices, self.name, self.sym)
 
+    def nameset(self, imap):
+        namelist = ['f', 'F', 'I', 'V', 'g','G']
+        if self.name in namelist:
+            istr = self._istr(imap)
+            name = self.name+'.'
+            for char in istr:
+                if char >= 'i':
+                    name += 'o'
+                else:
+                    name += 'v'
+            return name
+        else:
+            return self.name
 
 def permute(t, p):
     name = str(t.name)

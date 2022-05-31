@@ -6,18 +6,19 @@ syspath.append('../')
 from fractions import Fraction
 from wick.expression import AExpression
 from wick.wick import apply_wick
-from wick.convenience import one_e, two_e, E1, E2, braEip1, Eip1, Eip2, commute
+from wick.convenience import one_e, two_e, E1, E2, braE1, braEip1, Eip1, Eip2, commute
 
 H1 = one_e("f", ["occ", "vir"], norder=True)
 H2 = two_e("I", ["occ", "vir"], norder=True)
 H = H1 + H2
 
-bra = braEip1("occ")
-T1 = E1("t", ["occ"], ["vir"])
-T2 = E2("t", ["occ"], ["vir"])
+#bra = braEip1("occ")
+bra = braE1("occ", "vir")
+T1 = E1("T1", ["occ"], ["vir"])
+T2 = E2("T2", ["occ"], ["vir"])
 
-R1 = Eip1("r", ["occ"])
-R2 = Eip2("r", ["occ"], ["vir"])
+R1 = E1("RS", ["occ"], ["vir"])
+R2 = E2("RD", ["occ"], ["vir"])
 
 T = T1 + T2
 R = R1 + R2
@@ -38,3 +39,4 @@ out = apply_wick(S)
 out.resolve()
 final = AExpression(Ex=out)
 print(final)
+print(final._print_einsum('SigmaS'))

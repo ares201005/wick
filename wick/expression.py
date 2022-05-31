@@ -505,7 +505,8 @@ class ATerm(object):
             if not tt.name:
                 fstr += tt._istr(imap)
             else:
-                tstr += ", " + tt.name
+                #tstr += ", " + tt.name
+                tstr += ", " + tt.nameset(imap)
                 istr += tt._istr(imap) + ","
         return sstr + "*einsum('" + istr[:-1] + "->" + fstr + "'" + tstr + ")"
 
