@@ -1,0 +1,43 @@
+
+two_p(w)= 1\sum_{0}\sum_{1}w_{01}b^{\dagger}_0(nm)b_1(nm)
+
+one_p(G)= 1\sum_{0}G_{0}b^{\dagger}_0(nm) + 1\sum_{0}G_{0}b_0(nm)
+
+Hp= 1\sum_{0}\sum_{1}w_{01}b^{\dagger}_0(nm)b_1(nm) + 1\sum_{0}G_{0}b^{\dagger}_0(nm) + 1\sum_{0}G_{0}b_0(nm) 
+
+
+ H1  =
+ -1\sum_{0}\sum_{1}f_{01}a_1(occ)a^{\dagger}_0(occ) + 1\sum_{0}\sum_{0}f_{00}a^{\dagger}_0(occ)a_0(vir) + 1\sum_{0}\sum_{0}f_{00}a^{\dagger}_0(vir)a_0(occ) + 1\sum_{0}\sum_{1}f_{01}a^{\dagger}_0(vir)a_1(vir)
+
+ H2  =
+ 1/4\sum_{0}\sum_{1}\sum_{2}\sum_{3}I_{0123}a_3(occ)a_2(occ)a^{\dagger}_0(occ)a^{\dagger}_1(occ) + -1/2\sum_{0}\sum_{1}\sum_{2}\sum_{0}I_{0120}a_2(occ)a^{\dagger}_0(occ)a^{\dagger}_1(occ)a_0(vir) + 1/4\sum_{0}\sum_{1}\sum_{0}\sum_{1}I_{0101}a^{\dagger}_0(occ)a^{\dagger}_1(occ)a_1(vir)a_0(vir) + -1/2\sum_{0}\sum_{0}\sum_{1}\sum_{2}I_{0012}a^{\dagger}_0(vir)a_2(occ)a_1(occ)a^{\dagger}_0(occ) + -1\sum_{0}\sum_{0}\sum_{1}\sum_{1}I_{0011}a^{\dagger}_0(vir)a_1(occ)a^{\dagger}_0(occ)a_1(vir) + -1/2\sum_{0}\sum_{0}\sum_{1}\sum_{2}I_{0012}a^{\dagger}_0(vir)a^{\dagger}_0(occ)a_2(vir)a_1(vir) + 1/4\sum_{0}\sum_{1}\sum_{0}\sum_{1}I_{0101}a^{\dagger}_0(vir)a^{\dagger}_1(vir)a_1(occ)a_0(occ) + -1/2\sum_{0}\sum_{1}\sum_{0}\sum_{2}I_{0102}a^{\dagger}_0(vir)a^{\dagger}_1(vir)a_0(occ)a_2(vir) + 1/4\sum_{0}\sum_{1}\sum_{2}\sum_{3}I_{0123}a^{\dagger}_0(vir)a^{\dagger}_1(vir)a_3(vir)a_2(vir)
+
+ Hep =
+ -1\sum_{0}\sum_{0}\sum_{1}g_{001}b_0(nm)a_1(occ)a^{\dagger}_0(occ) + -1\sum_{0}\sum_{0}\sum_{1}g_{001}b^{\dagger}_0(nm)a_1(occ)a^{\dagger}_0(occ) + 1\sum_{0}\sum_{0}\sum_{0}g_{000}b_0(nm)a^{\dagger}_0(occ)a_0(vir) + 1\sum_{0}\sum_{0}\sum_{0}g_{000}b^{\dagger}_0(nm)a^{\dagger}_0(occ)a_0(vir) + 1\sum_{0}\sum_{0}\sum_{0}g_{000}b_0(nm)a^{\dagger}_0(vir)a_0(occ) + 1\sum_{0}\sum_{0}\sum_{0}g_{000}b^{\dagger}_0(nm)a^{\dagger}_0(vir)a_0(occ) + 1\sum_{0}\sum_{0}\sum_{1}g_{001}b_0(nm)a^{\dagger}_0(vir)a_1(vir) + 1\sum_{0}\sum_{0}\sum_{1}g_{001}b^{\dagger}_0(nm)a^{\dagger}_0(vir)a_1(vir)
+
+ Hp  =
+ 1\sum_{0}\sum_{1}w_{01}b^{\dagger}_0(nm)b_1(nm) + 1\sum_{0}G_{0}b^{\dagger}_0(nm) + 1\sum_{0}G_{0}b_0(nm)
+ 
+ EOM-CCSD equations
+
+
+ CCSD Hamiltonian=
+
+-1\sum_{0}\sum_{1}f_{01}a_1(occ)a^{\dagger}_0(occ) + 1\sum_{0}\sum_{0}f_{00}a^{\dagger}_0(occ)a_0(vir) + 1\sum_{0}\sum_{0}f_{00}a^{\dagger}_0(vir)a_0(occ) + 1\sum_{0}\sum_{1}f_{01}a^{\dagger}_0(vir)a_1(vir) + 1/4\sum_{0}\sum_{1}\sum_{2}\sum_{3}I_{0123}a_3(occ)a_2(occ)a^{\dagger}_0(occ)a^{\dagger}_1(occ) + -1/2\sum_{0}\sum_{1}\sum_{2}\sum_{0}I_{0120}a_2(occ)a^{\dagger}_0(occ)a^{\dagger}_1(occ)a_0(vir) + 1/4\sum_{0}\sum_{1}\sum_{0}\sum_{1}I_{0101}a^{\dagger}_0(occ)a^{\dagger}_1(occ)a_1(vir)a_0(vir) + -1/2\sum_{0}\sum_{0}\sum_{1}\sum_{2}I_{0012}a^{\dagger}_0(vir)a_2(occ)a_1(occ)a^{\dagger}_0(occ) + -1\sum_{0}\sum_{0}\sum_{1}\sum_{1}I_{0011}a^{\dagger}_0(vir)a_1(occ)a^{\dagger}_0(occ)a_1(vir) + -1/2\sum_{0}\sum_{0}\sum_{1}\sum_{2}I_{0012}a^{\dagger}_0(vir)a^{\dagger}_0(occ)a_2(vir)a_1(vir) + 1/4\sum_{0}\sum_{1}\sum_{0}\sum_{1}I_{0101}a^{\dagger}_0(vir)a^{\dagger}_1(vir)a_1(occ)a_0(occ) + -1/2\sum_{0}\sum_{1}\sum_{0}\sum_{2}I_{0102}a^{\dagger}_0(vir)a^{\dagger}_1(vir)a_0(occ)a_2(vir) + 1/4\sum_{0}\sum_{1}\sum_{2}\sum_{3}I_{0123}a^{\dagger}_0(vir)a^{\dagger}_1(vir)a_3(vir)a_2(vir) + 1\sum_{0}\sum_{1}w_{01}b^{\dagger}_0(nm)b_1(nm) + 1\sum_{0}G_{0}b^{\dagger}_0(nm) + 1\sum_{0}G_{0}b_0(nm) + -1\sum_{0}\sum_{0}\sum_{1}g_{001}b_0(nm)a_1(occ)a^{\dagger}_0(occ) + -1\sum_{0}\sum_{0}\sum_{1}g_{001}b^{\dagger}_0(nm)a_1(occ)a^{\dagger}_0(occ) + 1\sum_{0}\sum_{0}\sum_{0}g_{000}b_0(nm)a^{\dagger}_0(occ)a_0(vir) + 1\sum_{0}\sum_{0}\sum_{0}g_{000}b^{\dagger}_0(nm)a^{\dagger}_0(occ)a_0(vir) + 1\sum_{0}\sum_{0}\sum_{0}g_{000}b_0(nm)a^{\dagger}_0(vir)a_0(occ) + 1\sum_{0}\sum_{0}\sum_{0}g_{000}b^{\dagger}_0(nm)a^{\dagger}_0(vir)a_0(occ) + 1\sum_{0}\sum_{0}\sum_{1}g_{001}b_0(nm)a^{\dagger}_0(vir)a_1(vir) + 1\sum_{0}\sum_{0}\sum_{1}g_{001}b^{\dagger}_0(nm)a^{\dagger}_0(vir)a_1(vir)
+S1= 1\sum_{0}S1_{0}b^{\dagger}_0(nm) 
+
+S2= 1/2\sum_{0}\sum_{1}s2_{01}b^{\dagger}_0(nm)b^{\dagger}_1(nm) 
+
+S3= 1/6\sum_{0}\sum_{1}\sum_{2}s3_{012}b^{\dagger}_0(nm)b^{\dagger}_1(nm)b^{\dagger}_2(nm) 
+
+
+LS= 1\sum_{0}\sum_{0}LS_{00}a^{\dagger}_0(occ)a_0(vir)
+
+LD= 1/4\sum_{0}\sum_{0}\sum_{1}\sum_{1}LD_{0101}a^{\dagger}_0(occ)a^{\dagger}_1(occ)a_1(vir)a_0(vir)
+
+L1= 1\sum_{0}L1_{0}b_0(nm)
+
+L11= 1\sum_{0}\sum_{0}\sum_{0}L11_{000}b_0(nm)a^{\dagger}_0(occ)a_0(vir)
+
+EOM-CCSD sigS part
+

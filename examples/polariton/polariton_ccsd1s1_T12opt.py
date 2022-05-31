@@ -8,7 +8,7 @@ from wick.expression import AExpression
 from wick.wick import apply_wick
 from wick.convenience import one_e, two_e, one_p, two_p, ep11
 from wick.convenience import P3, P2, P1, E1, E2, EPS1, braE1, braE2, braP1, braP1E1, commute
-from wick.convenience import deP1, deE1, deE2, deEPS1, ketE1, ketE2, ketP1, ketP1E1
+from wick.convenience import ketE1, ketE2, ketP1, ketP1E1, deE1, deE2
 
 # f: fork matrix
 # I: two body integral (ERIs)
@@ -18,8 +18,10 @@ from wick.convenience import deP1, deE1, deE2, deEPS1, ketE1, ketE2, ketP1, ketP
 # G: single model peice of Hamiltonian
 # H:  
 #
+
 H1 = one_e("f", ["occ", "vir"], norder=True)
 H2 = two_e("I", ["occ", "vir"], norder=True, compress=True)
+#H2 = two_e("I", ["occ", "vir"], norder=True)
 
 # 1-boson operator
 # two_p is: \sum_{01}w_{01}[b^{\dagger}_0(nm)b_1(nm)]
@@ -34,7 +36,7 @@ print('\nHp=', Hp, '\n')
 
 # e-p coupling, g^x_{qp}
 Hep = ep11("g", ["occ", "vir"], ["nm"], norder=True)
-H = H1 + H2 + Hp + Hep
+H = H1 + H2 #+ Hp + Hep
 
 print('\n H1  =\n', H1)
 print('\n H2  =\n', H2)
@@ -141,18 +143,16 @@ if get_EOMCCSD:
     # coupled fermion-boson excitation
     U11 = EPS1("U11", ["nm"], ["occ"], ["vir"])
 
-    LS = deE1("LS", ["occ"], ["vir"])
-    LD = deE2("LD", ["occ"], ["vir"])
-    L1 = deP1("L1", ["nm"])
-    L11 = deEPS1("L11", ["nm"], ["occ"], ["vir"])
+    RS = E1("RS", ["occ"], ["vir"])
+    RD = E2("RD", ["occ"], ["vir"])
+    R1 = P1("R1", ["nm"])
+    R11 = EPS1("R11", ["nm"], ["occ"], ["vir"])
 
-    T = T1 + T2 + S1 + U11
-    L = LS + LD + L1 + L11
+    T = T1 + T2 #+ S1 + U11
+    R = RS + RD #+ R1 + R11
 
-    print('\nLS=', LS)
-    print('\nLD=', LD)
-    print('\nL1=', L1)
-    print('\nL11=', L11)
+    print('\nRS=', RS)
+    print('\nRD=', RD)
 
     HT = commute(H, T)
     HTT = commute(HT, T)
@@ -168,29 +168,47 @@ if get_EOMCCSD:
 
     Hbar += Fraction('1/6')*HTTT + Fraction('1/24')*HTTTT
 
-    # =================  EOM - sigS part =================
-    print('\nEOM-CCSD sigS part\n')
+
+    # separately generate the different sectors of the similarity transformed Hamiltonian
+    # <phi_0,0| u Hbar v |phi_0.0>
+    # 
+    # 1) (u,v) = (s,s)
     bra = braE1("occ", "vir")
     ket = ketE1("occ", "vir")
-    sys.stdout.flush()
 
-    S = L*(Hbar - E0)*ket
+    S = bra*(Hbar - E0)*ket
 
     out = apply_wick(S)
     out.resolve()
     final = AExpression(Ex=out)
     final.sort_tensors()
     print(final)
-    print(final._print_einsum('SigS'))
+    print(final._print_einsum('Wss'))
+
+    #TODO
+
+    sys.exit()
+    # =================  EOM - sigS part =================
+    print('\nEOM-CCSD sigS part\n')
+    bra = braE1("occ", "vir")
+    sys.stdout.flush()
+
+    S = bra*(Hbar - E0)*R
+
+    out = apply_wick(S)
+    out.resolve()
+    final = AExpression(Ex=out)
+    final.sort_tensors()
+    print(final)
+    print(final._print_einsum('Wss'))
 
     sys.stdout.flush()
 
     # =================  EOM - sigD part =================
     print('\nEOM-CCSD sigD part\n')
     bra = braE2("occ", "vir", "occ", "vir")
-    ket = ketE2("occ", "vir", "occ", "vir")
 
-    S = L*(Hbar - E0)*ket
+    S = bra*(Hbar - E0)*R
 
     out = apply_wick(S)
     out.resolve()
@@ -204,9 +222,8 @@ if get_EOMCCSD:
     # =================  EOM - sig1 part =================
     print('\nEOM-CCSD sig1 part\n')
     bra = braP1('nm') 
-    ket = ketP1('nm') 
 
-    S = L*(Hbar - E0)*ket
+    S = bra*(Hbar - E0)*R
 
     out = apply_wick(S)
     out.resolve()
@@ -219,9 +236,8 @@ if get_EOMCCSD:
     # =================  EOM - sigU1 part =================
     print('\nEOM-CCSD sigU1 part\n')
     bra = braP1E1('nm','occ', 'vir') 
-    ket = ketP1E1('nm','occ', 'vir') 
 
-    S = L*(Hbar - E0)*ket
+    S = bra*(Hbar - E0)*R
 
     out = apply_wick(S)
     out.resolve()
