@@ -142,6 +142,9 @@ Hbar = H + HT + Fraction('1/2')*HTT
 S0 = Hbar
 E0 = apply_wick(S0)
 E0.resolve()
+final = AExpression(Ex=E0)
+print(final)
+print(final._print_einsum())
 
 Hbar += Fraction('1/6')*HTTT + Fraction('1/24')*HTTTT
 
