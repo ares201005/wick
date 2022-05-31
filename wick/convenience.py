@@ -816,6 +816,27 @@ def braP3(space, index_key=None):
     return Expression([
         Term(1, [], tensors, operators, [], index_key=index_key)])
 
+
+def braPn(space, index_key=None,n=4):
+    """
+    Return projection onto space of Boson pairs
+
+    space (str): Name of boson space
+    """
+
+    operators = []
+    tensor_list = []
+    
+    for k in range(n):
+        x = Idx(k, space, fermion=False)
+        operators.append(BOperator(x, False))
+        tensor_list.append(x)
+
+    tensors = [Tensor(tensor_list, "")]
+    return Expression([
+        Term(1, [], tensors, operators, [], index_key=index_key)])
+
+
 def braP1E1(bspace, ospace, vspace, index_key=None):
     """
     Return left-projector onto a space of single excitations coupled to
@@ -1035,6 +1056,24 @@ def ketP2(space, index_key=None):
             1, [], [Tensor([x, y], "")],
             [BOperator(x, True), BOperator(y, True)],
             [], index_key=index_key)])
+
+def ketPn(space, index_key=None,n=4):
+    """
+    Return projection onto space of Boson pairs
+
+    space (str): Name of boson space
+    """
+
+    operators = []
+    tensor_list = []
+    for k in range(n):
+        x = Idx(k, space, fermion=False)
+        operators.append(BOperator(x, True))
+        tensor_list.append(x)
+
+    tensors = [Tensor(tensor_list, "")]
+    return Expression([
+        Term(1, [], tensors, operators, [], index_key=index_key)])
 
 
 def ketP1E1(bspace, ospace, vspace, index_key=None):

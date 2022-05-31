@@ -2,6 +2,7 @@
 import sys
 from sys import path as syspath
 syspath.append('../')
+syspath.append('../../')
 
 from fractions import Fraction
 from wick.expression import AExpression
@@ -28,14 +29,14 @@ H2 = two_e("I", ["occ", "vir"], norder=True, compress=True)
 #  Fock matrix and matrix of normal modes are not assumed to be diagonal, even though they will usually be diagonal
 # i./e, w_{01} = 0, w_{00} is the vibrational mode (freq)
 
-Hp = two_p("w") + one_p("G")
+Hp = two_p("w") #+ one_p("G")
 print('\ntwo_p(w)=', two_p("w"))
 print('\none_p(G)=', one_p("G"))
 print('\nHp=', Hp, '\n')
 
 # e-p coupling, g^x_{qp}
 Hep = ep11("g", ["occ", "vir"], ["nm"], norder=True)
-H = H1 + H2 #+ Hp + Hep
+H = H1 + H2 + Hp + Hep
 
 print('\n H1  =\n', H1)
 print('\n H2  =\n', H2)
