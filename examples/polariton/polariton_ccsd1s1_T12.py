@@ -111,7 +111,7 @@ if get_CCSD:
     Hbar += Fraction('1/6')*HTTT
 
     for i in range(nfock):
-       bra = braPn('nm',n=1) 
+       bra = braPn('nm',n=i) 
        S = bra*Hbar
        out = apply_wick(S)
        out.resolve()
