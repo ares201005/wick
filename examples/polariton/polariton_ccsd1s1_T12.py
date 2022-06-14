@@ -117,7 +117,7 @@ if get_CCSD:
        out.resolve()
        final = AExpression(Ex=out)
        print(final)
-       print(final._print_einsum('S%s'%*(i+1))
+       print(final._print_einsum('S%s'%(i+1))
 
 
     print('\n ----------- p1E1 term -----------\n')
