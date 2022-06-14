@@ -112,7 +112,7 @@ if get_CCSD:
 
     for i in range(nfock):
        bra = braPn('nm',n=1) 
-       S = bra1*Hbar
+       S = bra*Hbar
        out = apply_wick(S)
        out.resolve()
        final = AExpression(Ex=out)
