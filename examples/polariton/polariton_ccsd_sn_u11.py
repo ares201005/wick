@@ -69,7 +69,8 @@ if get_CCSD:
     #print('S3=', S3,'\n')
 
     nfock = 4
-    T = T1 + T2 
+    T = T1 + T2
+    # Bosonic excitation up to nfock order
     for i in range(1,nfock+1):
         name = 'S%s'%i + 'old'
         Sn = Pn(name, ["nm"], n=i)
