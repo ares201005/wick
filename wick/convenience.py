@@ -547,6 +547,94 @@ def P3(name, spaces, index_key=None):
                 terms.append(e2)
     return Expression(terms)
 
+def P4(name, spaces, index_key=None):
+    """
+    Return the tensor representation of a Boson double-excitation operator
+
+    name (string): name of the tensor
+    spaces (list): list of spaces
+    """
+    terms = []
+    sym = TensorSym([(0, 1, 2, 3), (1, 2, 3, 0)], [1, 1])
+    for s1 in spaces:
+        for s2 in spaces:
+            for s3 in spaces:
+               for s4 in spaces:
+                 x = Idx(0, s1, fermion=False)
+                 i = 1 if s1 == s2 else 0
+                 y = Idx(i, s2, fermion=False)
+                 i = 2 if s1 == s3 else 0
+                 z = Idx(i, s3, fermion=False)
+                 i = 3 if s1 == s4 else 0
+                 w = Idx(i, s3, fermion=False)
+                 sums = [Sigma(x), Sigma(y), Sigma(z), Sigma(w)]
+                 tensors = [Tensor([x, y, z, w], name, sym=sym)]
+                 operators = [BOperator(x, True), BOperator(y, True), BOperator(z, True), BOperator(w, True)]
+                 s = Fraction('1/24')
+                 e2 = Term(s, sums, tensors, operators, [], index_key=index_key)
+                 terms.append(e2)
+    return Expression(terms)
+
+
+def P5(name, spaces, index_key=None):
+    """
+    Return the tensor representation of a Boson double-excitation operator
+
+    name (string): name of the tensor
+    spaces (list): list of spaces
+    """
+    terms = []
+    sym = TensorSym([(0, 1, 2, 3, 4), (1, 2, 3, 4, 0)], [1, 1])
+    for s1 in spaces:
+        for s2 in spaces:
+            for s3 in spaces:
+               for s4 in spaces:
+                 for s5 in spaces:
+                     x = Idx(0, s1, fermion=False)
+                     i = 1 if s1 == s2 else 0
+                     y = Idx(i, s2, fermion=False)
+                     i = 2 if s1 == s3 else 0
+                     z = Idx(i, s3, fermion=False)
+                     i = 3 if s1 == s4 else 0
+                     w = Idx(i, s3, fermion=False)
+                     i = 4 if s1 == s5 else 0
+                     u = Idx(i, s3, fermion=False)
+                     
+                     sums = [Sigma(x), Sigma(y), Sigma(z), Sigma(w), Sigma(u)]
+                     tensors = [Tensor([x, y, z, w, u], name, sym=sym)]
+                     operators = [BOperator(x, True), BOperator(y, True), BOperator(z, True), BOperator(w, True), BOoperator(u, True)]
+                     s = Fraction('1/120')
+                     e2 = Term(s, sums, tensors, operators, [], index_key=index_key)
+                     terms.append(e2)
+    return Expression(terms)
+
+
+
+def Pn(name, spaces, index_key=None, n = 4):
+    """
+    Return the tensor representation of a Boson double-excitation operator
+
+    name (string): name of the tensor
+    spaces (list): list of spaces
+    """
+
+    if n == 1: 
+        return P1(name, spaces, index_key)
+    elif n == 2:
+        return P2(name, spaces, index_key)
+    elif n == 3:
+        return P3(name, spaces, index_key)
+    elif n == 4:
+        return P4(name, spaces, index_key)
+    elif n == 5:
+        return P5(name, spaces, index_key)
+    else:
+        print('warning: only fock space <=5 is supported')
+        sys.exit()
+
+
+
+
 def EPS1(name, bspaces, ospaces, vspaces, index_key=None):
     """
     Return the tensor representation of a coupled
@@ -876,6 +964,30 @@ def braP2E1(b1space, b2space, ospace, vspace, index_key=None):
     tensors = [Tensor([x, y, a, i], "")]
     return Expression([
         Term(1, [], tensors, operators, [], index_key=index_key)])
+
+
+def braPnE1(b1space, b2space, ospace, vspace, index_key=None, n=2):
+    """
+    Return left-projector onto a space of single excitations coupled pairs
+    of bosons
+
+    b1space (str): first boson space
+    b2space (str): second boson space
+    ospace (str): occupied space
+    vspace (str): virtual space
+    """
+    x = Idx(0, b1space, fermion=False)
+    yx = 1 if b1space == b2space else 0
+    y = Idx(yx, b2space, fermion=False)
+    i = Idx(0, ospace)
+    a = Idx(0, vspace)
+    operators = [
+        BOperator(x, False), BOperator(y, False),
+        FOperator(i, True), FOperator(a, False)]
+    tensors = [Tensor([x, y, a, i], "")]
+    return Expression([
+        Term(1, [], tensors, operators, [], index_key=index_key)])
+
 
 
 def braP1Eea1(bspace, vspace, index_key=None):
