@@ -105,17 +105,20 @@ if get_CCSD:
 
     print('\n ----------- pn term -----------\n')
     #bra = braP1('nm') 
-    bra = braPn('nm',n=4) 
+    nfock = 4
 
     Hbar = H + HT + Fraction('1/2')*HTT
     Hbar += Fraction('1/6')*HTTT
 
-    S = bra*Hbar
-    out = apply_wick(S)
-    out.resolve()
-    final = AExpression(Ex=out)
-    print(final)
-    print(final._print_einsum('S1'))
+    for i in range(nfock):
+       bra = braPn('nm',n=1) 
+       S = bra1*Hbar
+       out = apply_wick(S)
+       out.resolve()
+       final = AExpression(Ex=out)
+       print(final)
+       print(final._print_einsum('S%s'%*(i+1))
+
 
     print('\n ----------- p1E1 term -----------\n')
     bra = braP1E1('nm','occ', 'vir') 
