@@ -20,7 +20,7 @@ from wick.convenience import Pn, braP2E1
 # H:  
 #
 
-H1 = one_e("f", ["occ", "vir"], norder=True)
+H1 = one_e("F", ["occ", "vir"], norder=True)
 H2 = two_e("I", ["occ", "vir"], norder=True, compress=True)
 #H2 = two_e("I", ["occ", "vir"], norder=True)
 

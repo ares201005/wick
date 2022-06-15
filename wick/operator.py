@@ -265,9 +265,9 @@ class Tensor(object):
             istr = self._istr(imap)
             name = self.name+'.'
             for char in istr:
-                if char >= 'i':
+                if char >= 'i' and char <= 'n':
                     name += 'o'
-                else:
+                elif char >= 'a' and char <= 'g':
                     name += 'v'
             return name
         else:
