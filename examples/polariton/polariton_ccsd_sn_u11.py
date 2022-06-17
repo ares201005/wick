@@ -68,13 +68,14 @@ if get_CCSD:
     #print('S2=', S2,'\n')
     #print('S3=', S3,'\n')
 
-    nfock = 4
+    nfock = 1
     T = T1 + T2
     # Bosonic excitation up to nfock order
     for i in range(1,nfock+1):
         name = 'S%s'%i + 'old'
         Sn = Pn(name, ["nm"], n=i)
         T += Sn
+        if i == 1: S1 = Sn
         print('S%s='%i, Sn)
     # coupled fermion-boson excitation
     U11 = EPS1("U11old", ["nm"], ["occ"], ["vir"])
@@ -85,7 +86,8 @@ if get_CCSD:
     bra = braE1("occ", "vir")
     HT = commute(H, T)
     HTT = commute(HT, T)
-    HTTT = commute(commute(commute(H2, T1), T1), T1)
+    HTTT = commute(commute(commute(H2+Hep, T), T), T)
+    #HTTT = commute(commute(commute(H2, T1), T1), T1)
 
     # e^{-T} H e^T 
     # <HF | e^{-T} H e^{T} | HF> 
@@ -95,7 +97,6 @@ if get_CCSD:
     final = AExpression(Ex=out)
     print(final)
     print(final._print_einsum('T1'))
-    sys.exit()
 
     print('\n ----------- T-2 term -----------\n')
     bra = braE2("occ", "vir", "occ", "vir")
