@@ -86,7 +86,7 @@ if get_CCSD:
     bra = braE1("occ", "vir")
     HT = commute(H, T)
     HTT = commute(HT, T)
-    HTTT = commute(commute(commute(H2+Hep, T), T), T)
+    HTTT = commute(commute(commute(H2+Hep, T1), T1), T1)
     #HTTT = commute(commute(commute(H2, T1), T1), T1)
 
     # e^{-T} H e^T 
