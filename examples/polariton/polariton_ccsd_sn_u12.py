@@ -55,6 +55,7 @@ bra1 = braPn('nm',n=4)
 print(bra)
 print(bra1)
 
+nfock = 4
 if get_CCSD:
     # Fermionic excitations (single and double)
     T1 = E1("T1old", ["occ"], ["vir"])
@@ -68,7 +69,6 @@ if get_CCSD:
     #print('S2=', S2,'\n')
     #print('S3=', S3,'\n')
 
-    nfock = 4
     T = T1 + T2
     # Bosonic excitation up to nfock order
     for i in range(1,nfock+1):
@@ -179,11 +179,23 @@ if get_EOMCCSD:
     R1 = P1("R1", ["nm"])
     R11 = EPS1("R11", ["nm"], ["occ"], ["vir"])
 
-    T = T1 + T2 #+ S1 + U11
-    R = RS + RD #+ R1 + R11
+    T = T1 + T2 + U11
+    R = RS + RD + R11
 
-    print('\nRS=', RS)
-    print('\nRD=', RD)
+    # Bosonic excitation up to nfock order
+    for i in range(1,nfock+1):
+        name = 'S%s'%i + 'old'
+        Sn = Pn(name, ["nm"], n=i)
+        T += Sn
+        if i == 1: S1 = Sn
+        print('S%s='%i, Sn)
+
+        name = 'R%s'%i
+        Rn = Pn(name, ["nm"], n=i)
+        R += Rn
+
+    #print('\nRS=', RS)
+    #print('\nRD=', RD)
 
     HT = commute(H, T)
     HTT = commute(HT, T)

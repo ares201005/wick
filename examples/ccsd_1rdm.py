@@ -1,3 +1,7 @@
+
+from sys import path as syspath
+syspath.append('../')
+
 from fractions import Fraction
 from wick.index import Idx
 from wick.operator import FOperator, Tensor
