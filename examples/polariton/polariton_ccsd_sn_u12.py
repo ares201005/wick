@@ -46,7 +46,8 @@ print('\n Hp  =\n', Hp)
 
 #print('\nHamiltonain is\n', H)
 
-get_CCSD = True #False
+get_CCSD = False
+get_CCSD = True
 get_EOMCCSD = True
 
 # test braPn
@@ -55,7 +56,7 @@ bra1 = braPn('nm',n=4)
 print(bra)
 print(bra1)
 
-nfock = 4
+nfock = 3
 if get_CCSD:
     # Fermionic excitations (single and double)
     T1 = E1("T1old", ["occ"], ["vir"])
@@ -80,6 +81,22 @@ if get_CCSD:
     U11 = EPS1("U11old", ["nm"], ["occ"], ["vir"])
     #T = T1 + T2 + S1 + S2 + U11
     T += U11
+
+    print('\n ----------- CCSD energy -----------\n')
+    HT = commute(H, T)
+    HTT = commute(HT, T)
+    HTTT = commute(HTT, T)
+    HTTTT = commute(HTTT, T)
+
+    Hbar = H + HT + Fraction('1/2')*HTT
+    Hbar += Fraction('1/6')*HTTT
+    Hbar += Fraction('1/24')*HTTTT
+
+    S0 = Hbar
+    E0 = apply_wick(S0)
+    E0.resolve()
+    final = AExpression(Ex=E0)
+    print('\n',final._print_einsum('Eccsd'))
 
     print('\n ----------- T-1 term -----------\n')
     bra = braE1("occ", "vir")
@@ -164,12 +181,12 @@ if get_EOMCCSD:
     T1 = E1("T1", ["occ"], ["vir"])
     T2 = E2("T2", ["occ"], ["vir"])
 
-    S1 = P1("S1", ["nm"])
-    S2 = P2("s2", ["nm"])
-    S3 = P3("s3", ["nm"])
-    print('S1=', S1,'\n')
-    print('S2=', S2,'\n')
-    print('S3=', S3,'\n')
+    #S1 = P1("S1", ["nm"])
+    #S2 = P2("s2", ["nm"])
+    #S3 = P3("s3", ["nm"])
+    #print('S1=', S1,'\n')
+    #print('S2=', S2,'\n')
+    #print('S3=', S3,'\n')
 
     # coupled fermion-boson excitation
     U11 = EPS1("U11", ["nm"], ["occ"], ["vir"])
@@ -184,11 +201,10 @@ if get_EOMCCSD:
 
     # Bosonic excitation up to nfock order
     for i in range(1,nfock+1):
-        name = 'S%s'%i + 'old'
+        name = 'S%s'%i
         Sn = Pn(name, ["nm"], n=i)
         T += Sn
-        if i == 1: S1 = Sn
-        print('S%s='%i, Sn)
+        print('\nS%s='%i, Sn)
 
         name = 'R%s'%i
         Rn = Pn(name, ["nm"], n=i)
@@ -241,21 +257,22 @@ if get_EOMCCSD:
     print(final._print_einsum('SigD'))
     sys.stdout.flush()
 
-    sys.exit()
-    # =================  EOM - sig1 part =================
-    print('\nEOM-CCSD sig1 part\n')
-    bra = braP1('nm') 
+    # =================  EOM - sign part =================
+    for i in range(1, nfock+1):
+        bra = braPn('nm', n=i)
+        print('\nEOM-CCSD Sig%s part\n'%i)
 
-    S = bra*(Hbar - E0)*R
+        bra = braP1('nm') 
+        S = bra*(Hbar - E0)*R
+        out = apply_wick(S)
+        out.resolve()
+        final = AExpression(Ex=out)
 
-    out = apply_wick(S)
-    out.resolve()
-    final = AExpression(Ex=out)
-    print(final)
-    print('\n einsum format=\n')
-    print(final._print_einsum('Sig1'))
-    sys.stdout.flush()
-    
+        print(final)
+        print('\n einsum format=\n')
+        print(final._print_einsum('Sig%'%i))
+        sys.stdout.flush()
+
     # =================  EOM - sigU1 part =================
     print('\nEOM-CCSD sigU1 part\n')
     bra = braP1E1('nm','occ', 'vir') 
