@@ -176,6 +176,20 @@ def two_p(name, space="nm", index_key=None):
         [BOperator(x, True), BOperator(y, False)], [], index_key=index_key)
     return Expression([t1])
 
+def occ_p(name, space="nm", index_key=None):
+    """
+    Return expression representing a 1-boson operator
+
+    name (str): Name of operator
+    space (str): Name of boson space
+    """
+    # x, y, index to bosonic modes
+
+    x = Idx(0, space, fermion=False)
+    t1 = Term(
+        1, [Sigma(x), Sigma(x)], [Tensor([x, x], name)],
+        [BOperator(x, True), BOperator(x, False)], [], index_key=index_key)
+    return Expression([t1])
 
 def _get_tc(x, p1, p2, name2, norder, index_key):
     sigmas = [Sigma(x), Sigma(p1), Sigma(p2)]
@@ -482,7 +496,7 @@ def Eea2(name, ospaces, vspaces, index_key=None):
 
 
 
-def P1(name, spaces, index_key=None):
+def P1(name, spaces, index_key=None, creation=True):
     """
     Return the tensor representation of a Boson excitation operator
 
@@ -494,13 +508,13 @@ def P1(name, spaces, index_key=None):
         x = Idx(0, s, fermion=False)
         sums = [Sigma(x)]
         tensors = [Tensor([x], name)]
-        operators = [BOperator(x, True)]
+        operators = [BOperator(x, creation)]
         e1 = Term(1, sums, tensors, operators, [], index_key=index_key)
         terms.append(e1)
     return Expression(terms)
 
 
-def P2(name, spaces, index_key=None):
+def P2(name, spaces, index_key=None, creation=True):
     """
     Return the tensor representation of a Boson double-excitation operator
 
@@ -516,13 +530,13 @@ def P2(name, spaces, index_key=None):
             y = Idx(i, s2, fermion=False)
             sums = [Sigma(x), Sigma(y)]
             tensors = [Tensor([x, y], name, sym=sym)]
-            operators = [BOperator(x, True), BOperator(y, True)]
+            operators = [BOperator(x, creation), BOperator(y, creation)]
             s = Fraction('1/2')
             e2 = Term(s, sums, tensors, operators, [], index_key=index_key)
             terms.append(e2)
     return Expression(terms)
 
-def P3(name, spaces, index_key=None):
+def P3(name, spaces, index_key=None, creation=True):
     """
     Return the tensor representation of a Boson double-excitation operator
 
@@ -541,13 +555,13 @@ def P3(name, spaces, index_key=None):
                 z = Idx(i, s3, fermion=False)
                 sums = [Sigma(x), Sigma(y), Sigma(z)]
                 tensors = [Tensor([x, y, z], name, sym=sym)]
-                operators = [BOperator(x, True), BOperator(y, True), BOperator(z, True)]
+                operators = [BOperator(x, creation), BOperator(y, creation), BOperator(z, creation)]
                 s = Fraction('1/6')
                 e2 = Term(s, sums, tensors, operators, [], index_key=index_key)
                 terms.append(e2)
     return Expression(terms)
 
-def P4(name, spaces, index_key=None):
+def P4(name, spaces, index_key=None, creation=True):
     """
     Return the tensor representation of a Boson double-excitation operator
 
@@ -569,14 +583,15 @@ def P4(name, spaces, index_key=None):
                  w = Idx(i, s3, fermion=False)
                  sums = [Sigma(x), Sigma(y), Sigma(z), Sigma(w)]
                  tensors = [Tensor([x, y, z, w], name, sym=sym)]
-                 operators = [BOperator(x, True), BOperator(y, True), BOperator(z, True), BOperator(w, True)]
+                 operators = [BOperator(x, creation), BOperator(y, creation),
+                         BOperator(z, creation), BOperator(w, creation)]
                  s = Fraction('1/24')
                  e2 = Term(s, sums, tensors, operators, [], index_key=index_key)
                  terms.append(e2)
     return Expression(terms)
 
 
-def P5(name, spaces, index_key=None):
+def P5(name, spaces, index_key=None, creation=True):
     """
     Return the tensor representation of a Boson double-excitation operator
 
@@ -599,18 +614,65 @@ def P5(name, spaces, index_key=None):
                      w = Idx(i, s3, fermion=False)
                      i = 4 if s1 == s5 else 0
                      u = Idx(i, s3, fermion=False)
-                     
+
                      sums = [Sigma(x), Sigma(y), Sigma(z), Sigma(w), Sigma(u)]
                      tensors = [Tensor([x, y, z, w, u], name, sym=sym)]
-                     operators = [BOperator(x, True), BOperator(y, True), BOperator(z, True), BOperator(w, True), BOoperator(u, True)]
+                     operators = [BOperator(x, creation), BOperator(y, creation),
+                             BOperator(z, creation), BOperator(w, creation), BOperator(u, creation)]
                      s = Fraction('1/120')
                      e2 = Term(s, sums, tensors, operators, [], index_key=index_key)
                      terms.append(e2)
     return Expression(terms)
 
+def gen_terms (terms, creation, name, sym, index_key, norder, number, spaces, slist):
+
+    if (number > 0):
+       for s in spaces:
+           slist.append(s)
+           gen_terms(terms, creation, name, sym, index_key, norder, number - 1, spaces, slist)
+           slist.pop()
+    else:
+       #print('test_slit=', slist)
+       xyz = []
+       for k, s in enumerate(slist):
+           i = 0
+           if s == slist[0]:
+               i = k
+           #print('print test-i', k, i,s, slist[0], s==slist[0])
+           x = Idx(i, s, fermion = False)
+           xyz.append(x)
+
+       sums = [Sigma(x) for x in xyz]
+       tensors = [Tensor(xyz, name, sym=sym)]
+       operators = [BOperator(x, creation) for x in xyz]
+       s = Fraction('1/%d'%norder)
+       e2 = Term(s, sums, tensors, operators, [], index_key=index_key)
+       terms.append(e2)
+
+def Pn(name, spaces, index_key=None, n = 1, creation=True):
+    """
+    Return the tensor representation of a Boson double-excitation operator
+
+    name (string): name of the tensor
+    spaces (list): list of spaces
+    """
+    terms = []
+    list1 = tuple(range(n))
+    list2 = tuple(list(list1[1:]) + list([list1[0]]))
+    sym = TensorSym([list1, list2], [1, 1])
+    norder = 1
+    for i in range(1,n+1):
+        norder *= i
+
+    for s1 in spaces:
+        slist = []
+        slist.append(s1)
+        gen_terms(terms, creation, name, sym,index_key, norder, n-1, spaces, slist)
+    return Expression(terms)
 
 
-def Pn(name, spaces, index_key=None, n = 4):
+
+def Pn_old(name, spaces, index_key=None, n = 1, creation=True):
     """
     Return the tensor representation of a Boson double-excitation operator
 
@@ -618,20 +680,19 @@ def Pn(name, spaces, index_key=None, n = 4):
     spaces (list): list of spaces
     """
 
-    if n == 1: 
-        return P1(name, spaces, index_key)
+    if n == 1:
+        return P1(name, spaces, index_key, creation)
     elif n == 2:
-        return P2(name, spaces, index_key)
+        return P2(name, spaces, index_key, creation)
     elif n == 3:
-        return P3(name, spaces, index_key)
+        return P3(name, spaces, index_key, creation)
     elif n == 4:
-        return P4(name, spaces, index_key)
+        return P4(name, spaces, index_key, creation)
     elif n == 5:
-        return P5(name, spaces, index_key)
+        return P5(name, spaces, index_key, creation)
     else:
         print('warning: only fock space <=5 is supported')
         sys.exit()
-
 
 
 
@@ -690,6 +751,184 @@ def EPS2(name, bspaces, ospaces, vspaces, index_key=None):
                     e1 = Term(
                         s, sums, tensors, operators, [], index_key=index_key)
                     terms.append(e1)
+    return Expression(terms)
+
+
+def EPS3(name, bspaces, ospaces, vspaces, index_key=None):
+    """
+    Return the tensor representation of a coupled
+    Fermion-double Boson excitation operator
+
+    name (string): name of the tensor
+    bspaces (list): list of Boson spaces
+    ospaces (list): list of occupied spaces
+    vspaces (list): list of virtual spaces
+    """
+    terms = []
+    sym = TensorSym([(0, 1, 2, 3, 4), (1, 2, 0, 3, 4)], [1, 1])
+    for b1 in bspaces:
+       for b2 in bspaces:
+          for b3 in bspaces:
+            for os in ospaces:
+                for vs in vspaces:
+                    x = Idx(0, b1, fermion=False)
+                    i = 1 if b1 == b2 else 0
+                    j = 2 if b1 == b3 else 0
+                    y = Idx(i, b2, fermion=False)
+                    z = Idx(j, b3, fermion=False)
+                    i = Idx(0, os)
+                    a = Idx(0, vs)
+                    sums = [Sigma(x), Sigma(y), Sigma(z), Sigma(i), Sigma(a)]
+
+                    tensors = [Tensor([x, y, z, a, i], name, sym=sym)]
+                    operators = [BOperator(x, True), BOperator(y, True), BOperator(z, True),
+                                 FOperator(a, True), FOperator(i, False)]
+                    s = Fraction('1/6')
+                    e1 = Term(
+                        s, sums, tensors, operators, [], index_key=index_key)
+                    terms.append(e1)
+    return Expression(terms)
+
+def gen_u2terms (terms, creation, name, sym, index_key, norder, number, bspaces, ospaces, vspaces, slist):
+
+    if (number > 0):
+       for s in bspaces:
+           slist.append(s)
+           gen_u2terms(terms, creation, name, sym, index_key, norder, number - 1, bspaces, ospaces, vspaces, slist)
+           slist.pop()
+    else:
+       #print('test_slit=', slist)
+       for i1, o1 in enumerate(ospaces):
+           for o2 in ospaces[i1:]:
+               for j1, v1 in enumerate(vspaces):
+                   for v2 in vspaces[j1:]:
+                       xyz = []
+                       for k, s in enumerate(slist):
+                           i = 0
+                           if s == slist[0]:
+                               i = k
+                           x = Idx(i, s, fermion = False)
+                           xyz.append(x)
+
+                       i = Idx(0, o1)
+                       a = Idx(0, v1)
+                       j = Idx(1, o2)
+                       b = Idx(1, v2)
+                       abij = [a, b, i, j]
+
+
+                       scalar = 1
+                       if o1 == o2:
+                           scalar *= Fraction(1, 2)
+                       if v1 == v2:
+                           scalar *= Fraction(1, 2)
+
+                       sums = [Sigma(x) for x in xyz] + [Sigma(i), Sigma(a), Sigma(j), Sigma(b)]
+                       tensors = [Tensor(xyz+abij, name, sym=sym)]
+                       E2 = [FOperator(a, True), FOperator(b, True),
+                       FOperator(j, False), FOperator(i, False)]
+
+                       operators = [BOperator(x, creation) for x in xyz] + E2
+                       scalar *= Fraction('1/%d'%norder)
+                       e2 = Term(scalar, sums, tensors, operators, [], index_key=index_key)
+                       terms.append(e2)
+
+def gen_uterms (terms, creation, name, sym, index_key, norder, number, bspaces, ospaces, vspaces, slist):
+
+    if (number > 0):
+       for s in bspaces:
+           slist.append(s)
+           gen_uterms(terms, creation, name, sym, index_key, norder, number - 1, bspaces, ospaces, vspaces, slist)
+           slist.pop()
+    else:
+       #print('test_slit=', slist)
+       for os in ospaces:
+           for vs in vspaces:
+               xyz = []
+               for k, s in enumerate(slist):
+                   i = 0
+                   if s == slist[0]:
+                       i = k
+                   #print('print test-i', k, i,s, slist[0], s==slist[0])
+                   x = Idx(i, s, fermion = False)
+                   xyz.append(x)
+
+               i = Idx(0, os)
+               a = Idx(0, vs)
+               ai = [a, i]
+
+               sums = [Sigma(x) for x in xyz] + [Sigma(i), Sigma(a)]
+
+               tensors = [Tensor(xyz+ai, name, sym=sym)]
+               operators = [BOperator(x, creation) for x in xyz] + [FOperator(a, True), FOperator(i, False)]
+               s = Fraction('1/%d'%norder)
+               e2 = Term(s, sums, tensors, operators, [], index_key=index_key)
+               terms.append(e2)
+
+def EPSn(name, bspaces, ospaces, vspaces, n=1, index_key=None, creation=True):
+    """
+    Return the tensor representation of a coupled
+    Fermion-double Boson excitation operator
+
+    name (string): name of the tensor
+    bspaces (list): list of Boson spaces
+    ospaces (list): list of occupied spaces
+    vspaces (list): list of virtual spaces
+    """
+    terms = []
+    list1 = tuple(range(n+2))
+    list2 = tuple(list(list1[1:-2]) + list([list1[0]])+list(list1[-2:]))
+    sym = TensorSym([list1, list2], [1, 1])
+    norder = 1
+    for i in range(1,n+1):
+        norder *= i
+
+    for s1 in bspaces:
+        slist = []
+        slist.append(s1)
+        gen_uterms(terms, creation, name, sym,index_key, norder, n-1, bspaces, ospaces, vspaces, slist)
+    return Expression(terms)
+
+def E2PSn(name, bspaces, ospaces, vspaces, n=1, index_key=None, creation=True):
+    """
+    Return the tensor representation of a coupled
+    Fermion-double Boson excitation operator
+
+    Fermion: double excitation
+    Boson: n excitation (>=1)
+
+    name (string): name of the tensor
+    bspaces (list): list of Boson spaces
+    ospaces (list): list of occupied spaces
+    vspaces (list): list of virtual spaces
+    """
+
+    terms = []
+    list1 = tuple(range(n+4))
+    list2 = tuple(list(list1[1:-4]) + list([list1[0]])+list(list1[-4:]))
+    # a <-> i
+    list3 = tuple(list(list1[:-4]) + [list1[-3],list1[-4], list1[-2], list1[-1]] ) #-1
+    # b <-> j
+    list4 = tuple(list(list1[:-4]) + [list1[-4], list1[-3], list1[-1], list1[-2]] ) #-1
+    # (a, b) <-> (i, j)
+    list5 = tuple(list(list1[:-4]) + [list1[-3], list1[-4], list1[-1], list1[-2]] ) #1
+    #
+
+    print("List1=", list1)
+    print("List2=", list2)
+    print("List3=", list3)
+    print("List4=", list4)
+    print("List5=", list5)
+
+    sym = TensorSym([list1, list2, list3, list4, list5], [1, 1, -1, -1, 1])
+    norder = 1
+    for i in range(1,n+1):
+        norder *= i
+
+    for s1 in bspaces:
+        slist = []
+        slist.append(s1)
+        gen_u2terms(terms, creation, name, sym,index_key, norder, n-1, bspaces, ospaces, vspaces, slist)
     return Expression(terms)
 
 
@@ -914,7 +1153,7 @@ def braPn(space, index_key=None,n=4):
 
     operators = []
     tensor_list = []
-    
+
     for k in range(n):
         x = Idx(k, space, fermion=False)
         operators.append(BOperator(x, False))
@@ -942,7 +1181,6 @@ def braP1E1(bspace, ospace, vspace, index_key=None):
     return Expression([
         Term(1, [], tensors, operators, [], index_key=index_key)])
 
-
 def braP2E1(b1space, b2space, ospace, vspace, index_key=None):
     """
     Return left-projector onto a space of single excitations coupled pairs
@@ -965,28 +1203,65 @@ def braP2E1(b1space, b2space, ospace, vspace, index_key=None):
     return Expression([
         Term(1, [], tensors, operators, [], index_key=index_key)])
 
-
-def braPnE1(b1space, b2space, ospace, vspace, index_key=None, n=2):
+def braPnE1(bspace_list, ospace, vspace, index_key=None):
     """
     Return left-projector onto a space of single excitations coupled pairs
     of bosons
 
-    b1space (str): first boson space
-    b2space (str): second boson space
+    bspace [(str)]: boson space list
     ospace (str): occupied space
     vspace (str): virtual space
     """
-    x = Idx(0, b1space, fermion=False)
-    yx = 1 if b1space == b2space else 0
-    y = Idx(yx, b2space, fermion=False)
+
+    xyz = []
+    for k, bspace in enumerate(bspace_list):
+        i = 0
+        if bspace == bspace_list[0]:
+            i = k
+        x = Idx(i, bspace, fermion=False)
+        xyz.append(x)
+
     i = Idx(0, ospace)
     a = Idx(0, vspace)
-    operators = [
-        BOperator(x, False), BOperator(y, False),
-        FOperator(i, True), FOperator(a, False)]
-    tensors = [Tensor([x, y, a, i], "")]
-    return Expression([
-        Term(1, [], tensors, operators, [], index_key=index_key)])
+    ai = [a,i]
+    operators = [BOperator(x, False) for x in xyz] + [FOperator(i, True), FOperator(a, False)]
+    tensors = [Tensor(xyz+ai, "")]
+    return Expression([Term(1, [], tensors, operators, [], index_key=index_key)])
+
+def braPnE2(bspace_list, o1, v1, o2, v2, index_key=None):
+    """
+    Return left-projector onto a space of single excitations coupled pairs
+    of bosons
+
+    bspace [(str)]: boson space list
+    o1 (str): 1st occupied space
+    v1 (str): 1st virtual space
+    o2 (str): 2nd occupied space
+    v2 (str): 2nd virtual space
+    """
+
+    xyz = []
+    for k, bspace in enumerate(bspace_list):
+        i = 0
+        if bspace == bspace_list[0]:
+            i = k
+        x = Idx(i, bspace, fermion=False)
+        xyz.append(x)
+
+    i = Idx(0, o1)
+    a = Idx(0, v1)
+    jx = 1 if o2 == o1 else 0
+    bx = 1 if v2 == v1 else 0
+    j = Idx(jx, o1)
+    b = Idx(bx, v1)
+    ai = [a, b, i, j]
+
+    E2 = [
+        FOperator(i, True), FOperator(j, True),
+        FOperator(b, False), FOperator(a, False)]
+    operators = [BOperator(x, False) for x in xyz] + E2
+    tensors = [Tensor(xyz+ai, "")]
+    return Expression([Term(1, [], tensors, operators, [], index_key=index_key)])
 
 
 
